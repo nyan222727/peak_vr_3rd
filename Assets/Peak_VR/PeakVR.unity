@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.11269039, g: 0.2815672, b: 0.70918185, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5454,6 +5453,7 @@ GameObject:
   - component: {fileID: 990207682}
   - component: {fileID: 990207681}
   - component: {fileID: 990207684}
+  - component: {fileID: 990207685}
   m_Layer: 0
   m_Name: '[BuildingBlock] Camera Rig'
   m_TagString: Untagged
@@ -5600,7 +5600,7 @@ Transform:
   m_GameObject: {fileID: 990207671}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.99, y: 0.541, z: 14.18}
+  m_LocalPosition: {x: -8.99, y: 1.24, z: 12.737}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5627,7 +5627,7 @@ MonoBehaviour:
   rigRb: {fileID: 990207680}
   climbableMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   handProbeRadius: 0.09
   gripThreshold: 0.55
   throwBoost: 1.2
@@ -5702,7 +5702,7 @@ MonoBehaviour:
   jumpForce: 3
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   groundCheckDistance: 1.1
   groundCheck: {fileID: 1616815332}
 --- !u!114 &990207683
@@ -5821,6 +5821,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &990207685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990207671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80c03b4f68d9fd64aa2de1a162077d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 990207676}
+  headTransform: {fileID: 1616815332}
+  leftHandTransform: {fileID: 1833734774}
+  rightHandTransform: {fileID: 946826378}
 --- !u!1 &997894606
 GameObject:
   m_ObjectHideFlags: 0
@@ -9644,12 +9660,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!135 &1616815336
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10605,12 +10621,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &1772002907
 GameObject:
   m_ObjectHideFlags: 0
@@ -11092,12 +11108,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &1796385849
 GameObject:
   m_ObjectHideFlags: 0
@@ -12911,7 +12927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2145955920
 Transform:
   m_ObjectHideFlags: 0

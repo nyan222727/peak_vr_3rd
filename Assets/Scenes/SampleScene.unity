@@ -2896,7 +2896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneManager: {fileID: 0}
   _playerPrefab:
-    RawGuidValue: f3f7eaa005e0d9b4a94a5f08f44b7364
+    RawGuidValue: 1a7d4c6e80245ee4c9dac507f02b21e2
   DebugMode: 0
   RoomName: {fileID: 1699951233}
 --- !u!1 &2002584574
