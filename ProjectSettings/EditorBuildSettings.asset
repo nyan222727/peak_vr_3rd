@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Peak_VR/PeakVR.unity
+    guid: 8be81ba118a7bb642a165fc82ca83831
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 59bc318976fa2904297902866725395b,
       type: 2}
