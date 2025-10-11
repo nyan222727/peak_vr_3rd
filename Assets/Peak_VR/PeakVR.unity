@@ -6560,6 +6560,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spinning Cat
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d83901c8fe9ab72429390ff3c20fbd8f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -10016,8 +10021,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCPrefab:
   - RawGuidValue: 7de59ada95cea28488f00604e65e5364
+  - RawGuidValue: bb799f8948f470f4986222489ced235b
   NPCPos:
   - {fileID: 1234370162}
+  - {fileID: 1751486100}
 --- !u!4 &1653663810
 Transform:
   m_ObjectHideFlags: 0
@@ -10598,6 +10605,37 @@ SkinnedMeshRenderer:
     m_Center: {x: 3.5085697, y: 0.084750324, z: -0.17565808}
     m_Extent: {x: 0.10651207, y: 0.1877416, z: 0.45612457}
   m_DirtyAABB: 0
+--- !u!1 &1751486099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1751486100}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1751486100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751486099}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.46, y: 1.38, z: 10.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1762155943
 GameObject:
   m_ObjectHideFlags: 0
@@ -13421,3 +13459,4 @@ SceneRoots:
   - {fileID: 887544751}
   - {fileID: 1653663810}
   - {fileID: 1234370162}
+  - {fileID: 1751486100}
