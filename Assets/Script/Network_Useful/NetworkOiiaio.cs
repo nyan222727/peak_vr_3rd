@@ -32,10 +32,11 @@ public class NetworkOiiaio : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //local
-        healingParticle = FindObjectsOfType<NetworkRig>()
-             .FirstOrDefault(c => c.Object != null && c.Object.HasStateAuthority).transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<ParticleSystem>();
-        
+     
+         healingParticle = FindObjectsOfType<NetworkRig>()
+              .FirstOrDefault(c => c.Object != null && c.Object.HasStateAuthority).transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<ParticleSystem>();
+
+
         staminaManager = GameObject.Find("ClimbStaminaManager").GetComponent<ClimbStaminaManager>();
     
         
@@ -69,7 +70,10 @@ public class NetworkOiiaio : NetworkBehaviour
         if (!isHolding)
         {
             initialPosition = transform.position;
+            
             initialRotation = transform.rotation;
+            
+
             isHolding = true;
         }
     }
@@ -116,6 +120,7 @@ public class NetworkOiiaio : NetworkBehaviour
         }
         if (isHolding)
         {
+            Debug.Log("Holding Oiiaio");
             transform.Rotate(Vector3.up, rotateSpeed * Time.deltaTime);
             if (rotateSound != null && !audioSource.isPlaying)
             {
