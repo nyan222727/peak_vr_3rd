@@ -32,30 +32,30 @@ public class NetworkOiiaio : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        HardwareRig hardwareRig = FindObjectOfType<HardwareRig>();
+     
+           // local
     
+    // *** 這是新的、基於名稱的全局查找邏輯 (不推薦用於最終產品) ***
+    
+    // 1. 全域查找所有 ParticleSystem 組件
+    var allParticles = FindObjectsOfType<ParticleSystem>(true); // (true) 包含非啟用物件
+    
+    // 2. 篩選出其根物件 (root) 是擁有 State Authority 的 NetworkRig 的那個粒子系統
+    healingParticle = allParticles
+        .FirstOrDefault(ps => {
+            // 檢查粒子的根物件是否是 NetworkRig，並且 Rig 擁有 StateAuthority
+            var rootRig = ps.transform.root.GetComponent<NetworkRig>();
+            
+            return rootRig != null && 
+                   rootRig.Object != null && 
+                   rootRig.Object.HasStateAuthority &&
+                   ps.gameObject.name == "Particle System"; // 確保名稱匹配 (可選)
+        });
 
-    if (hardwareRig != null)
+    if (healingParticle == null)
     {
-        // 假設 ParticleSystem 位於 HardwareRig 遊戲物件下的層級：
-        // HardwareRig.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<ParticleSystem>();
-        // 您需要確認正確的路徑。這裡沿用原始程式碼的路徑假設：
-        Transform targetTransform = hardwareRig.transform.GetChild(0).GetChild(1).GetChild(0);
-        if (targetTransform != null)
-        {
-            healingParticle = targetTransform.GetComponent<ParticleSystem>();
-        }
-        else
-        {
-            Debug.LogError("無法在 HardwareRig 下找到 ParticleSystem 的目標子物件！請檢查路徑。");
-        }
+        Debug.LogError("錯誤: 無法找到符合條件 (StateAuthority Rig 且 ParticleSystem 存在) 的 Healing Particle。");
     }
-    else
-    {
-        Debug.LogError("場景中找不到 HardwareRig！");
-    }
-
 
 
         staminaManager = GameObject.Find("ClimbStaminaManager").GetComponent<ClimbStaminaManager>();
@@ -124,6 +124,7 @@ public class NetworkOiiaio : NetworkBehaviour
         // 控制 healing 粒子特效
         if (healingParticle)
         {
+            Debug.Log("healingParticle found");
             if (isHolding && !particleIsPlaying)
             {
                 // healingParticle.Play();
