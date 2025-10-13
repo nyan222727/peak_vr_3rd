@@ -32,9 +32,30 @@ public class NetworkOiiaio : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     
-         healingParticle = FindObjectsOfType<NetworkRig>()
-              .FirstOrDefault(c => c.Object != null && c.Object.HasStateAuthority).transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<ParticleSystem>();
+
+        HardwareRig hardwareRig = FindObjectOfType<HardwareRig>();
+    
+
+    if (hardwareRig != null)
+    {
+        // 假設 ParticleSystem 位於 HardwareRig 遊戲物件下的層級：
+        // HardwareRig.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<ParticleSystem>();
+        // 您需要確認正確的路徑。這裡沿用原始程式碼的路徑假設：
+        Transform targetTransform = hardwareRig.transform.GetChild(0).GetChild(1).GetChild(0);
+        if (targetTransform != null)
+        {
+            healingParticle = targetTransform.GetComponent<ParticleSystem>();
+        }
+        else
+        {
+            Debug.LogError("無法在 HardwareRig 下找到 ParticleSystem 的目標子物件！請檢查路徑。");
+        }
+    }
+    else
+    {
+        Debug.LogError("場景中找不到 HardwareRig！");
+    }
+
 
 
         staminaManager = GameObject.Find("ClimbStaminaManager").GetComponent<ClimbStaminaManager>();
@@ -72,7 +93,7 @@ public class NetworkOiiaio : NetworkBehaviour
             initialPosition = transform.position;
             
             initialRotation = transform.rotation;
-            
+            Debug.Log("after roptate");
 
             isHolding = true;
         }
