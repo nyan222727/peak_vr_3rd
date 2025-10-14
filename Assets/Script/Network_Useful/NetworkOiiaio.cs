@@ -32,32 +32,10 @@ public class NetworkOiiaio : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     
-           // local
-    
-    // *** 這是新的、基於名稱的全局查找邏輯 (不推薦用於最終產品) ***
-    
-    // 1. 全域查找所有 ParticleSystem 組件
-    var allParticles = FindObjectsOfType<ParticleSystem>(true); // (true) 包含非啟用物件
-    
-    // 2. 篩選出其根物件 (root) 是擁有 State Authority 的 NetworkRig 的那個粒子系統
-    healingParticle = allParticles
-        .FirstOrDefault(ps => {
-            // 檢查粒子的根物件是否是 NetworkRig，並且 Rig 擁有 StateAuthority
-            var rootRig = ps.transform.root.GetComponent<NetworkRig>();
-            
-            return rootRig != null && 
-                   rootRig.Object != null && 
-                   rootRig.Object.HasStateAuthority &&
-                   ps.gameObject.name == "Particle System"; // 確保名稱匹配 (可選)
-        });
-
-    if (healingParticle == null)
-    {
-        Debug.LogError("錯誤: 無法找到符合條件 (StateAuthority Rig 且 ParticleSystem 存在) 的 Healing Particle。");
-    }
-
-
+        //local
+        healingParticle = FindObjectsOfType<NetworkRig>()
+             .FirstOrDefault(c => c.Object != null && c.Object.HasStateAuthority).transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ParticleSystem>();
+        
         staminaManager = GameObject.Find("ClimbStaminaManager").GetComponent<ClimbStaminaManager>();
     
         
@@ -91,10 +69,7 @@ public class NetworkOiiaio : NetworkBehaviour
         if (!isHolding)
         {
             initialPosition = transform.position;
-            
             initialRotation = transform.rotation;
-            Debug.Log("after roptate");
-
             isHolding = true;
         }
     }
@@ -124,7 +99,6 @@ public class NetworkOiiaio : NetworkBehaviour
         // 控制 healing 粒子特效
         if (healingParticle)
         {
-            Debug.Log("healingParticle found");
             if (isHolding && !particleIsPlaying)
             {
                 // healingParticle.Play();
@@ -142,7 +116,6 @@ public class NetworkOiiaio : NetworkBehaviour
         }
         if (isHolding)
         {
-            Debug.Log("Holding Oiiaio");
             transform.Rotate(Vector3.up, rotateSpeed * Time.deltaTime);
             if (rotateSound != null && !audioSource.isPlaying)
             {
@@ -190,7 +163,7 @@ public class NetworkOiiaio : NetworkBehaviour
     {
         if (BasicSpawner.Instance.runner.TryFindObject(targetId, out NetworkObject obj))
         {
-            var ps = obj.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<ParticleSystem>();
+            var ps = obj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ParticleSystem>();
             ps.Play();
         }
         else
@@ -204,7 +177,7 @@ public class NetworkOiiaio : NetworkBehaviour
     {
         if (BasicSpawner.Instance.runner.TryFindObject(targetId, out NetworkObject obj))
         {
-            var ps = obj.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<ParticleSystem>();
+            var ps = obj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ParticleSystem>();
             ps.Stop();
         }
         else

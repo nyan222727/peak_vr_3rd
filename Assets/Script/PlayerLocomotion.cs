@@ -35,9 +35,12 @@ public class PlayerLocomotion : MonoBehaviour
         Transform moveRef = head ? head : transform;
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
+        Debug.Log($"h: {h}, v: {v}");
         Vector3 move = (moveRef.right * h + moveRef.forward * v).normalized;
         Vector3 velocity = new Vector3(move.x * moveSpeed, rb.velocity.y, move.z * moveSpeed);
+        Debug.Log($"Velocity: {velocity}");
         rb.velocity = velocity;
+        Debug.Log($"VelocityRB: {rb.velocity}");
 
         // 右手搖桿 snap turn（執行時暫時關閉 interpolation）
         if (snapTurnReady && rb != null)

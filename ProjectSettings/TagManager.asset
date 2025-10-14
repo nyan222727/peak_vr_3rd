@@ -8,11 +8,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Climbable
   - Water
   - UI
-  - 
-  - 
+  - Hand
+  - Overlay UI
   - 
   - 
   - 
