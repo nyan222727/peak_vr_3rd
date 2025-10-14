@@ -58,7 +58,7 @@ public class NetworkOiiaio : NetworkBehaviour
 
     public void UnGrab()
     {
-        RPC_UnGrab();
+        RPC_CatUnGrab();
     }
 
     // 按下（開始持續效果）
@@ -187,7 +187,7 @@ public class NetworkOiiaio : NetworkBehaviour
     }
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RPC_UnGrab(RpcInfo info = default)
+    private void RPC_CatUnGrab(RpcInfo info = default)
     {
         GetComponent<Rigidbody>().isKinematic = false;
     }
