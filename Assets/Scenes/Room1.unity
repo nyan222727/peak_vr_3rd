@@ -15769,7 +15769,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1153556921}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &1157496973
+--- !u!84 &1157042572
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17512,6 +17512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1264672686}
+  - component: {fileID: 1264672687}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -17627,6 +17628,14 @@ Transform:
   - {fileID: 1040866246}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1264672687
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264672685}
+  m_Enabled: 0
 --- !u!1 &1267536870
 GameObject:
   m_ObjectHideFlags: 0
@@ -18910,7 +18919,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 09f4f1f1cf5914042846bd21f85904e7, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.245
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -18918,7 +18927,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 100
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -19003,7 +19012,7 @@ Transform:
   m_GameObject: {fileID: 1362178914}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.879623, y: 2.9455073, z: 3.8083308}
+  m_LocalPosition: {x: 0.181, y: 0.902, z: 0.109}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19669,7 +19678,7 @@ PrefabInstance:
     - target: {fileID: 2333110202167176577, guid: 16571f1108e581e49bf9fbc47ee61395,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3003314089467241677, guid: 16571f1108e581e49bf9fbc47ee61395,
         type: 3}
@@ -28467,7 +28476,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 1157496973}
+        m_Texture: {fileID: 1157042572}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -28492,7 +28501,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DetailColor: {r: 0.5017688, g: 0.5219262, b: 0.575, a: 0}
     - _DetailData: {r: 0.5, g: 4, b: -0.5, a: 0}
-    - _DetailWindDirection: {r: -3.5608287, g: 0, b: 0, a: 0}
+    - _DetailWindDirection: {r: -0.3834522, g: 0, b: 0, a: 0}
     - _DistanceData: {r: 0, g: 5, b: 1, a: 1}
     - _FogOfWarCenter: {r: 0, g: 0, b: 0, a: 1}
     - _FogOfWarCenterAdjusted: {r: 0, g: 0, b: 0, a: 1}
@@ -28503,7 +28512,7 @@ Material:
     - _ShadowData: {r: 0.5, g: 0, b: 62500, a: 0}
     - _SpecularColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
     - _SunDir: {r: 0, g: 1, b: 0, a: 0}
-    - _WindDirection: {r: -3.5608287, g: 0, b: 0, a: 0}
+    - _WindDirection: {r: -0.3834522, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!1 &2027542102
 GameObject:
@@ -28607,7 +28616,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2044467727}
   - component: {fileID: 2044467726}
-  - component: {fileID: 2044467725}
   - component: {fileID: 2044467724}
   m_Layer: 0
   m_Name: Camera
@@ -28660,14 +28668,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &2044467725
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044467723}
-  m_Enabled: 0
 --- !u!20 &2044467726
 Camera:
   m_ObjectHideFlags: 0
