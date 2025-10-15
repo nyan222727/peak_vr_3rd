@@ -109,6 +109,19 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     //進到第二個場景，然後要加 Player 進去
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+        // In Shared mode, only the "master" should spawn ALL players.
+        if (!runner.IsSharedModeMasterClient) return;
+    
+        if (_playerPrefab.IsValid)
+        {
+            var spawnPos = new Vector3(0, 1, 0);
+            var netObj = runner.Spawn(_playerPrefab, spawnPos, Quaternion.identity, player);
+            _spawnedCharacters[player] = netObj;
+        }
+    }
+
+    /*public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    {
         if (player == runner.LocalPlayer && _playerPrefab != null)
         {
             Debug.Log(runner.LocalPlayer + "," + player);
@@ -120,7 +133,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             // Keep track of the player avatars for easy access
             _spawnedCharacters.Add(player, networkPlayerObject);
         }
-    }
+    }*/
 
     public void OnConnectedToServer(NetworkRunner r) {
     Debug.Log("OnConnectedToServer");
