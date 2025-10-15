@@ -55,7 +55,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     void Start()
     {
-        if(RoomName) RoomName.text = "TestRoom";
+        if(RoomName) RoomName.text = "Lobby";
     }
 
     void Update()
@@ -84,7 +84,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         if (sceneManager == null) sceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>();
 
         // Create the NetworkSceneInfo from the current scene
-        var scene = SceneRef.FromIndex(1);
+        var scene = SceneRef.FromIndex(2);
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid) {
             sceneInfo.AddSceneRef(scene, LoadSceneMode.Single);

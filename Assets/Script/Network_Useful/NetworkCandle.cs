@@ -24,6 +24,12 @@ public class NetworkCandle : NetworkBehaviour
   public override void Spawned() {
     // ensure correct visuals for late joiners
     CacheFlames();
+
+    //comment oout this if default should be unlit
+    if (Object.HasStateAuthority)
+        Lit = true;
+        
+
     ApplyLit(Lit);
   }
 
