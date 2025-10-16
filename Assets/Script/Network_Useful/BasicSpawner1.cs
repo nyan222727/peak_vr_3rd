@@ -9,9 +9,9 @@ using Fusion.Menu;
 using System.Threading.Tasks;
 using TMPro;
 
-public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
+public class BasicSpawner1 : MonoBehaviour, INetworkRunnerCallbacks
 {
-    public static BasicSpawner Instance { get; private set; }
+    public static BasicSpawner1 Instance { get; private set; }
     
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
     public void OnInput(NetworkRunner runner, NetworkInput input) { }
@@ -77,14 +77,14 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         //runner = gameObject.AddComponent<NetworkRunner>();
         runner = gameObject.GetComponent<NetworkRunner>();
-        runner.ProvideInput = false;
+        runner.ProvideInput = true;
         runner.AddCallbacks(this);
 
         // Create the scene manager if it does not exist
         if (sceneManager == null) sceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>();
 
         // Create the NetworkSceneInfo from the current scene
-        var scene = SceneRef.FromIndex(2);
+        var scene = SceneRef.FromIndex(1);
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid) {
             sceneInfo.AddSceneRef(scene, LoadSceneMode.Single);
@@ -109,6 +109,19 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     //進到第二個場景，然後要加 Player 進去
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+        // In Shared mode, only the "master" should spawn ALL players.
+        if (!runner.IsSharedModeMasterClient) return;
+    
+        if (_playerPrefab.IsValid)
+        {
+            var spawnPos = new Vector3(0, 0.15f, 0);
+            var netObj = runner.Spawn(_playerPrefab, spawnPos, Quaternion.identity, player);
+            _spawnedCharacters[player] = netObj;
+        }
+    }
+
+    /*public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    {
         if (player == runner.LocalPlayer && _playerPrefab != null)
         {
             Debug.Log(runner.LocalPlayer + "," + player);
@@ -120,7 +133,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             // Keep track of the player avatars for easy access
             _spawnedCharacters.Add(player, networkPlayerObject);
         }
-    }
+    }*/
 
     public void OnConnectedToServer(NetworkRunner r) {
     Debug.Log("OnConnectedToServer");

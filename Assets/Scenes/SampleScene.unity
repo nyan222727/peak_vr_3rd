@@ -12977,7 +12977,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2000894588}
+      - m_Target: {fileID: 2000894591}
         m_TargetAssemblyTypeName: BasicSpawner, Assembly-CSharp
         m_MethodName: QuickStart
         m_Mode: 1
@@ -22431,6 +22431,7 @@ GameObject:
   - component: {fileID: 2000894585}
   - component: {fileID: 2000894589}
   - component: {fileID: 2000894590}
+  - component: {fileID: 2000894591}
   m_Layer: 0
   m_Name: FusionManager
   m_TagString: Untagged
@@ -22484,7 +22485,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000894583}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f667ad68ad5132a4792234fa3553f78f, type: 3}
   m_Name: 
@@ -22578,6 +22579,23 @@ MonoBehaviour:
   useOnAudioFilterRead: 0
   useMicrophoneTypeFallback: 1
   recordWhenJoined: 1
+--- !u!114 &2000894591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000894583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55e2046c7660db40bd25ea995cb7d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneManager: {fileID: 0}
+  _playerPrefab:
+    RawGuidValue: 1a7d4c6e80245ee4c9dac507f02b21e2
+  DebugMode: 0
+  RoomName: {fileID: 1699951233}
 --- !u!1 &2002584574
 GameObject:
   m_ObjectHideFlags: 0
