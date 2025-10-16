@@ -62,9 +62,11 @@ bool IsLocal => ownerNo && ownerNo.HasInputAuthority;
         desiredRootPos += Vector3.down * firstPersonDownOffset;
     }
 
-    // Optional floor clamp (keeps avatar from sinking below Y floor)
+        // Optional floor clamp (keeps avatar from sinking below Y floor)
     if (clampToFloorY)
-      desiredRootPos.y = Mathf.Max(desiredRootPos.y, floorY);
+        desiredRootPos.y = Mathf.Max(desiredRootPos.y, floorY);
+      
+    desiredRootPos.y -= 0.035f;
 
     // Smooth move/rotate
     transform.position = Vector3.Lerp(transform.position, desiredRootPos, Time.deltaTime * moveFollowSpeed);
