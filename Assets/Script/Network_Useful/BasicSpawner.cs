@@ -114,7 +114,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     
         if (_playerPrefab.IsValid)
         {
-            var spawnPos = new Vector3(0, 0.3f, 0);
+            var spawnPos = new Vector3(0, 0.15f, 0);
             var netObj = runner.Spawn(_playerPrefab, spawnPos, Quaternion.identity, player);
             _spawnedCharacters[player] = netObj;
         }

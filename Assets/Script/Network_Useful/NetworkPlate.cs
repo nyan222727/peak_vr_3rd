@@ -114,14 +114,22 @@ private Transform ResolveAimSource() {
   public void Grab()
   {
     if (!Object.HasStateAuthority) Object.RequestStateAuthority();
+    if (!Object.HasStateAuthority) return;
     IsHeld = true;
   }
 
   public void UnGrab()
   {
     if (!Object.HasStateAuthority) Object.RequestStateAuthority();
+    if (!Object.HasStateAuthority) return;
     IsHeld = false;
-    RPC_UnGrab();
+    if (_rb) {
+        _rb.isKinematic = false;
+        _rb.useGravity  = true;
+        _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+    }
+    //RPC_UnGrab();
   }
 
   // ---- Select (press-and-hold ray) ----
