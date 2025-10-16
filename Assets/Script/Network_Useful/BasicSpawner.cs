@@ -77,7 +77,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         //runner = gameObject.AddComponent<NetworkRunner>();
         runner = gameObject.GetComponent<NetworkRunner>();
-        runner.ProvideInput = false;
+        runner.ProvideInput = true;
         runner.AddCallbacks(this);
 
         // Create the scene manager if it does not exist
@@ -114,7 +114,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     
         if (_playerPrefab.IsValid)
         {
-            var spawnPos = new Vector3(0, 1, 0);
+            var spawnPos = new Vector3(0, 0.3f, 0);
             var netObj = runner.Spawn(_playerPrefab, spawnPos, Quaternion.identity, player);
             _spawnedCharacters[player] = netObj;
         }

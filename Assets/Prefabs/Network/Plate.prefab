@@ -487,17 +487,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 594c7ba2b9c483f41ab70830c489dc2d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.085
+      value: 0.059999995
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 594c7ba2b9c483f41ab70830c489dc2d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.085
+      value: 0.059999995
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 594c7ba2b9c483f41ab70830c489dc2d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.085
+      value: 0.059999995
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 594c7ba2b9c483f41ab70830c489dc2d,
         type: 3}
@@ -730,7 +730,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1089112701313853228}
+      addedObject: {fileID: 2913877992527536982}
   m_SourcePrefab: {fileID: 100100000, guid: 594c7ba2b9c483f41ab70830c489dc2d, type: 3}
 --- !u!4 &58821040275304906 stripped
 Transform:
@@ -848,9 +848,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1089112701313853228}
-        m_TargetAssemblyTypeName: NetworkCandle, Assembly-CSharp
-        m_MethodName: ToggleSelected
+      - m_Target: {fileID: 2913877992527536982}
+        m_TargetAssemblyTypeName: NetworkPlate, Assembly-CSharp
+        m_MethodName: BeginSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -862,7 +862,19 @@ MonoBehaviour:
         m_CallState: 2
   _whenUnselect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2913877992527536982}
+        m_TargetAssemblyTypeName: NetworkPlate, Assembly-CSharp
+        m_MethodName: EndSelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _whenInteractorViewAdded:
     m_PersistentCalls:
       m_Calls: []
@@ -893,7 +905,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 630014834854631755}
-  - {fileID: 1089112701313853228}
+  - {fileID: 2913877992527536982}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &630014834854631755
 MonoBehaviour:
@@ -1014,7 +1026,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1089112701313853228
+--- !u!114 &2913877992527536982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1023,7 +1035,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 836308061229280112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8897e25dd8d4343afc86a5ab9d23da, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fe73f5c3390a0a488bfbdea4c93f00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flameObjects: []
+  minHoldDistance: 0.02
+  maxHoldDistance: 0.4
+  maxStepPerSecond: 0.2
+  maxRadiusFromStart: 0.4
+  dragMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  raycastMaxDistance: 3
+  useRaycastHit: 1
+  defaultAimSource: {fileID: 0}
+  rightRayPath: '[BuildingBlock] Camera Rig/[BuildingBlock] OVRInteractionComprehensive/RightInteractions/Interactors/Controller/ControllerRayInteractor/Visuals/ControllerRay'
+  useNegativeForward: 0
+  lockVertical: 1
+  planeYOffset: 0.0001
