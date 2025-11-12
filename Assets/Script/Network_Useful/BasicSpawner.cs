@@ -9,6 +9,8 @@ using Fusion.Menu;
 using System.Threading.Tasks;
 using TMPro;
 
+
+
 public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 {
     public static BasicSpawner Instance { get; private set; }
@@ -51,7 +53,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-    }
+    } 
+
+
+
+
+
 
     void Start()
     {
@@ -70,7 +77,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         // Launch the connection at start
         await Connect();
-        if(DebugMode) await Connect(1);
+        if (DebugMode) await Connect(1);
     }
 
     public async Task Connect(int peerIndex = 0)
@@ -84,7 +91,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         if (sceneManager == null) sceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>();
 
         // Create the NetworkSceneInfo from the current scene
-        var scene = SceneRef.FromIndex(1);
+        var scene = SceneRef.FromIndex(2);
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid) {
             sceneInfo.AddSceneRef(scene, LoadSceneMode.Single);
@@ -101,7 +108,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
         await runner.StartGame(args);
     }
-
+    
     public void QuickStart()
     {
         StartGame();
