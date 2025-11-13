@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class HardwareRig : MonoBehaviour, INetworkRunnerCallbacks
 {
+    public NetworkRig networkRig;
+
     public Transform playerTransform;
 
     public Transform headTransform;
@@ -15,12 +17,51 @@ public class HardwareRig : MonoBehaviour, INetworkRunnerCallbacks
 
     public Transform rightHandTransform;
 
+    [Header("Hand Bone Roots")]
+    public Transform leftHandRoot;
+    public Transform rightHandRoot;
+
+    public List<Transform> leftBones = new();
+    public List<Transform> rightBones = new();
+
     void Start()
     {
         BasicSpawner.Instance.runner.AddCallbacks(this);
+
+        CollectBonesRecursive(leftHandRoot, leftBones);
+        CollectBonesRecursive(rightHandRoot, rightBones);
     }
 
+    void CollectBonesRecursive(Transform root, List<Transform> list)
+    {
+        if (root == null) return;
+        if(root.gameObject.name != "XRHand_Wrist") list.Add(root);
+        foreach (Transform child in root)
+            CollectBonesRecursive(child, list);
+    }
 
+    void Update()
+    {
+        if (networkRig == null)
+        {
+            NetworkRig[] rigs = FindObjectsOfType<NetworkRig>();
+            foreach (var r in rigs)
+            {
+                if (r.Object != null && r.Object.HasInputAuthority)
+                {
+                    networkRig = r;
+                    break;
+                }
+            }
+        }
+
+        if (networkRig != null)
+        {
+            networkRig.UpdateLocalHandBones(leftBones, rightBones);
+        }
+    }
+
+    //if you dont have networktransform you need to manually update the position/rotation
     #region INetworkRunnerCallbacks
     void INetworkRunnerCallbacks.OnInput(NetworkRunner runner, NetworkInput input)
     {
@@ -135,19 +176,4 @@ public class HardwareRig : MonoBehaviour, INetworkRunnerCallbacks
     }
     #endregion
 
-}
-
-public struct RigState : INetworkInput
-{
-    public Vector3 PlayerPosition;
-    public Quaternion PlayerRotation;
-
-    public Vector3 HeadsetPosition;
-    public Quaternion HeadsetRotation;
-
-    public Vector3 LeftHandPosition;
-    public Quaternion LeftHandRotation;
-
-    public Vector3 RightHandPosition;
-    public Quaternion RightHandRotation;
 }
