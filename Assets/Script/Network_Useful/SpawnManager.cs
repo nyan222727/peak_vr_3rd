@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 using Fusion;
 using Fusion.Sockets;
@@ -11,6 +12,8 @@ public class SpawnManager : NetworkBehaviour, INetworkRunnerCallbacks
 {
     public NetworkPrefabRef[] NPCPrefab;
     public Transform[] NPCPos;
+
+
 
     [Networked] private NetworkBool NpcSpawned { get; set; }
 
@@ -24,7 +27,7 @@ public class SpawnManager : NetworkBehaviour, INetworkRunnerCallbacks
     {
         if (runner.LocalPlayer != player) return;
 
-        if(!NpcSpawned) SpawnAll(runner);
+        if (!NpcSpawned) SpawnAll(runner);
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -32,7 +35,7 @@ public class SpawnManager : NetworkBehaviour, INetworkRunnerCallbacks
         // 剩餘玩家排序，挑最小當下一任
         var remaining = runner.ActivePlayers.OrderBy(p => p.RawEncoded).ToList();
         if (remaining.Count == 0) return;
-        
+
         var nextOwner = remaining.First();
         bool iAmNext = runner.LocalPlayer == nextOwner;
 
@@ -52,7 +55,7 @@ public class SpawnManager : NetworkBehaviour, INetworkRunnerCallbacks
     {
         NpcSpawned = true;
         int num = 0;
-        foreach(NetworkPrefabRef obj in NPCPrefab)
+        foreach (NetworkPrefabRef obj in NPCPrefab)
         {
             var npc = runner.Spawn(obj, NPCPos[num].position, NPCPos[num].rotation, inputAuthority: null);
             var behavior = npc.GetComponent<NPCBehavior>();
@@ -60,12 +63,15 @@ public class SpawnManager : NetworkBehaviour, INetworkRunnerCallbacks
             num++;
         }
     }
+  
+
+
 
     public void OnConnectedToServer(NetworkRunner runner) { }
     public void OnDisconnectedFromServer(NetworkRunner r, NetDisconnectReason reason) { }
     public void OnConnectedToServer(NetworkRunner runner, NetAddress address, NetConnectFailedReason reason) { }
     public void OnConnectFailed(NetworkRunner runner, NetAddress address, NetConnectFailedReason reason) { }
-    public void OnConnectRequest(NetworkRunner r, NetworkRunnerCallbackArgs.ConnectRequest req, byte[] token) {}
+    public void OnConnectRequest(NetworkRunner r, NetworkRunnerCallbackArgs.ConnectRequest req, byte[] token) { }
     public void OnInput(NetworkRunner runner, NetworkInput input) { }
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
@@ -75,8 +81,8 @@ public class SpawnManager : NetworkBehaviour, INetworkRunnerCallbacks
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
     public void OnSceneLoadDone(NetworkRunner runner) { }
     public void OnSceneLoadStart(NetworkRunner runner) { }
-    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player){ }
-    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player){ }
-    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data){ }
-    public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress){ }
+    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
+    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
+    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data) { }
+    public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress) { }
 }

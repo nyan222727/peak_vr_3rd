@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 1467921837749416693}
   - component: {fileID: 4495004771688665667}
   - component: {fileID: 5646023504965891895}
+  - component: {fileID: 4145184891211216578}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -400,6 +401,7 @@ MonoBehaviour:
   - {fileID: 6057978874336043451}
   - {fileID: 2966564934642429367}
   - {fileID: 4495004771688665667}
+  - {fileID: 4145184891211216578}
   - {fileID: 6465748420357546688}
   - {fileID: 8123394411762573010}
   - {fileID: 8733658939793202939}
@@ -572,7 +574,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -603,7 +605,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5450321135686133502}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d003eea0ea0226f46a6084c569a50c70, type: 3}
   m_Name: 
@@ -614,6 +616,21 @@ MonoBehaviour:
   rightTarget: {fileID: 400362710202005848}
   leftEulerOffset: {x: 0, y: -90, z: 90}
   rightEulerOffset: {x: 0, y: 90, z: -90}
+--- !u!114 &4145184891211216578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5450321135686133502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5a9bc94873796449e54932b822df9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectPrefab:
+    RawGuidValue: 75a63a93e6b3bed45ab58260ebbcb862
+  spawnOffset: {x: 0, y: 0, z: 2}
 --- !u!1 &6776886486377542536
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,7 +765,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4676556404454625639}
@@ -819,7 +836,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2384,6 +2401,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Particle System
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685351020785441409, guid: c95fbde56c0b2c64a98e4991a1a2778c,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

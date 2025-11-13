@@ -39,6 +39,9 @@ public class NetworkRig : NetworkBehaviour
     {
         base.FixedUpdateNetwork();
 
+        if (!Object.HasStateAuthority)
+            return;
+
         if (GetInput<RigState>(out var input))
         {
             playerTransform.transform.SetPositionAndRotation(input.PlayerPosition, input.PlayerRotation);
@@ -55,16 +58,13 @@ public class NetworkRig : NetworkBehaviour
     public override void Render()
     {
         base.Render();
-        if (IsLocalNetworkRig)
-        {
-            playerTransform.transform.SetPositionAndRotation(hardwareRig.playerTransform.position, hardwareRig.playerTransform.rotation);
+        if (!IsLocalNetworkRig || hardwareRig == null)
+            return;
 
-            headTransform.transform.SetPositionAndRotation(hardwareRig.headTransform.position, hardwareRig.headTransform.rotation);
+        playerTransform.transform.SetPositionAndRotation(hardwareRig.playerTransform.position, hardwareRig.playerTransform.rotation);
+        headTransform.transform.SetPositionAndRotation(hardwareRig.headTransform.position, hardwareRig.headTransform.rotation);
+        leftHandTransform.transform.SetPositionAndRotation(hardwareRig.leftHandTransform.position, hardwareRig.leftHandTransform.rotation);
+        rightHandTransform.transform.SetPositionAndRotation(hardwareRig.rightHandTransform.position, hardwareRig.rightHandTransform.rotation);
 
-            leftHandTransform.transform.SetPositionAndRotation(hardwareRig.leftHandTransform.position, hardwareRig.leftHandTransform.rotation);
-
-            rightHandTransform.transform.SetPositionAndRotation(hardwareRig.rightHandTransform.position, hardwareRig.rightHandTransform.rotation);
-
-        }
     }
 }
