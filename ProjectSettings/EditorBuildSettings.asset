@@ -9,8 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Room1.unity
+    path: Assets/Scenes/RoomTEST.unity
     guid: 5293fdd1631d97943b11306d6fcadb8a
+  - enabled: 0
+    path: Assets/Scenes/NyanAddIkV4female.unity
+    guid: 5e3766a17907de2468669da8a20c3d79
+  - enabled: 1
+    path: Assets/Scenes/NyanChangeIk.unity
+    guid: daa88cb694cc98141b34bf45df5d4792
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 59bc318976fa2904297902866725395b,
       type: 2}
