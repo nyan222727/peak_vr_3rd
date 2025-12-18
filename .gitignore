@@ -72,6 +72,10 @@ mono_crash.*
 *.unitypackage
 *.unitypackage.meta
 *.app
+# WebGL / custom build output folders (your project uses Web/Build)
+Web/Build/
+Web/Build/**
+*.unityweb
 
 # Crashlytics generated file
 crashlytics-build.properties
