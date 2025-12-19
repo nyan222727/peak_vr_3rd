@@ -1,125 +1,266 @@
 using System.Collections.Generic;
-using Fusion;
-using Fusion.Photon.Realtime;
-using Fusion.Sockets;
 using UnityEngine;
+using Fusion;
+using Fusion.Sockets;
+using System;
+using UnityEngine.UI;
 
 public class FusionLauncher : MonoBehaviour, INetworkRunnerCallbacks
 {
-    public NetworkRunner runner;
-    public NetworkPrefabRef playerPrefab;
+    public NetworkRunner runnerPrefab;
+    private NetworkRunner _runner;
 
-    private readonly Dictionary<PlayerRef, NetworkObject> _spawned = new();
+    [Header("Player Spawn")]
+    public NetworkObject playerPrefab;
+    public Transform[] spawnPoints;
+    private Dictionary<PlayerRef, NetworkObject> _spawnedPlayers = new();
 
+    [Header("UI Panels")]
+    public GameObject panelMain;
+    public GameObject panelRoomList;
+    public GameObject panelInRoom;
 
-    public PhotonAppSettings photonAppSettingsAsset;
+    [Header("InRoom UI")]
+    public Text roomTitleText;
+    public Text roleText;
+    public Text playerCountText;
+    public Button leaveButton;
 
-    private void Awake()
+    [Header("UI Controls")]
+    public InputField roomNameInput;
+    public Button hostButton;
+    public Button refreshButton;
+
+    public Button showRoomListButton;
+
+    [Header("Room List")]
+    public Transform roomListParent;
+    public GameObject roomItemPrefab;
+
+    private readonly Dictionary<string, SessionInfo> _sessions = new();
+
+    enum UIState { Main, Lobby, InRoom }
+    void SetUI(UIState s)
     {
-        var others = FindObjectsOfType<NetworkRunner>();
-        if (others.Length > 0 && runner != null && others[0] != runner)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        if (runner == null) runner = GetComponent<NetworkRunner>() ?? gameObject.AddComponent<NetworkRunner>();
-        DontDestroyOnLoad(gameObject);
+        panelMain.SetActive(s == UIState.Main);
+        panelRoomList.SetActive(s == UIState.Lobby);
+        panelInRoom.SetActive(s == UIState.InRoom);
     }
-    public void Start()
+
+    async void Start()
     {
-        //StartAsHost();   // 先自動起 Host，確認能連線
-        //ValidateConfig();
-    }
-
-    // ===== 你自己的啟動流程（Host/Client） =====
-    public async void StartAsHost() => await StartRunner(GameMode.Host);
-    public async void StartAsClient() => await StartRunner(GameMode.Client);
-
-    private async System.Threading.Tasks.Task StartRunner(GameMode mode)
-    {
-        if (!runner) runner = GetComponent<NetworkRunner>() ?? gameObject.AddComponent<NetworkRunner>();
-        if (!GetComponent<NetworkSceneManagerDefault>()) gameObject.AddComponent<NetworkSceneManagerDefault>();
-
-        runner.ProvideInput = false;
-        runner.AddCallbacks(this);
-
-        var result = await runner.StartGame(new StartGameArgs
+        showRoomListButton.onClick.AddListener(() =>
         {
-            GameMode = mode,
-            SessionName = "HippoRoom",
-            SceneManager = GetComponent<NetworkSceneManagerDefault>()
+            SetUI(UIState.Lobby);
         });
 
-        Debug.Log($"StartGame Ok={result.Ok}, Reason={result.ShutdownReason}");
+        hostButton.onClick.AddListener(OnClickHost);
+        refreshButton.onClick.AddListener(() => RedrawRoomList());
+
+        leaveButton.onClick.AddListener(LeaveRoom);
+
+        SetUI(UIState.Main);
+
+        await EnsureRunner();
+        await JoinLobby();
     }
-    void ValidateConfig()
+
+    void UpdateInRoomUI(NetworkRunner runner)
     {
-        var inst = photonAppSettingsAsset;
-        Debug.Log(inst ? "Found PhotonAppSettings" : "PhotonAppSettings MISSING");
-        if (inst)
+        if (runner == null) return;
+        if (roomTitleText == null || roleText == null || playerCountText == null) return;
+
+        Debug.Log("更新人數囉!!!");
+        // SessionInfo 可能還沒 ready，先做防呆
+        var sessionName = (runner.SessionInfo != null) ? runner.SessionInfo.Name : "(no session)";
+        roomTitleText.text = $"Room: {sessionName}";
+        roleText.text = runner.IsServer ? "Role: Host" : "Role: Client";
+
+        int count = -1;
+        if (runner.SessionInfo != null) count = runner.SessionInfo.PlayerCount;
+
+        if (count < 0)
         {
-            var a = inst.AppSettings;
-            Debug.Log($"AppIdFusion: {(string.IsNullOrEmpty(a.AppIdFusion) ? "<EMPTY>" : a.AppIdFusion)} | FixedRegion: {a.FixedRegion}");
+            count = 0;
+            foreach (var _ in runner.ActivePlayers) count++;
         }
-        var npc = NetworkProjectConfig.Global;
-        Debug.Log(npc);
-
+        playerCountText.text = $"Players: {count}";
     }
 
-    // ===== 必填：Fusion 2 版 callbacks 簽名 =====
-    public void OnConnectedToServer(NetworkRunner r) =>
-        Debug.Log("✅ ConnectedToServer");
+  async System.Threading.Tasks.Task EnsureRunner()
+{
+    if (_runner != null) return;
 
-    public void OnDisconnectedFromServer(NetworkRunner r, NetDisconnectReason reason) =>
-        Debug.LogWarning($"⚠️ Disconnected: {reason}");
-
-    public void OnConnectFailed(NetworkRunner r, NetAddress addr, NetConnectFailedReason reason) =>
-        Debug.LogError($"❌ ConnectFailed: {reason}");
-
-    public void OnConnectRequest(NetworkRunner r, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
+    var existing = FindObjectOfType<NetworkRunner>();
+    if (existing != null)
     {
-        // 視需求驗證；先全部接受
-        request.Accept();
+        _runner = existing;
+        _runner.AddCallbacks(this);
+        _runner.ProvideInput = true;
+
+        Debug.Log($"[Main_FusionLauncher] Using existing Runner: {_runner.name}");
+        return;
     }
 
-    public void OnPlayerJoined(NetworkRunner r, PlayerRef player)
+    _runner = Instantiate(runnerPrefab);
+    _runner.name = "NetworkRunner";
+    _runner.AddCallbacks(this);
+    _runner.ProvideInput = true;
+    DontDestroyOnLoad(_runner.gameObject);
+
+    Debug.Log($"[Main_FusionLauncher] Spawned Runner: {_runner.name}");
+    await System.Threading.Tasks.Task.Yield();
+}
+
+
+    async System.Threading.Tasks.Task JoinLobby()
     {
-        Debug.Log($"PlayerJoined {player}");
-        if (r.IsServer)
+        var result = await _runner.JoinSessionLobby(SessionLobby.Shared);
+        Debug.Log($"JoinLobby: {result}");
+    }
+
+    async void OnClickHost()
+    {
+        string roomName = string.IsNullOrWhiteSpace(roomNameInput.text)
+       ? $"Room_{UnityEngine.Random.Range(1000, 9999)}"
+       : roomNameInput.text.Trim();
+
+        var args = new StartGameArgs
         {
-            var pos = new Vector3((player.RawEncoded % 4) * 2f, 0f, 0f);
-            var obj = r.Spawn(playerPrefab, pos, Quaternion.identity, player);
-            _spawned[player] = obj;
-        }
-    }
+            GameMode = GameMode.Host,   // ✅ 改成 Host
+            SessionName = roomName,
+        };
 
-    public void OnPlayerLeft(NetworkRunner r, PlayerRef player)
-    {
-        if (_spawned.TryGetValue(player, out var obj))
+        var result = await _runner.StartGame(args);
+        Debug.Log($"Host StartGame: {result}");
+
+        if (result.Ok)
         {
-            r.Despawn(obj);
-            _spawned.Remove(player);
+            SetUI(UIState.InRoom);
+            UpdateInRoomUI(_runner);
         }
     }
 
-    public void OnInput(NetworkRunner r, NetworkInput input) { }
-    public void OnInputMissing(NetworkRunner r, PlayerRef player, NetworkInput input) { }
-    public void OnUserSimulationMessage(NetworkRunner r, SimulationMessagePtr msg) { }
-    public void OnSessionListUpdated(NetworkRunner r, List<SessionInfo> sessions) { }
-    public void OnCustomAuthenticationResponse(NetworkRunner r, Dictionary<string, object> data) { }
-    public void OnHostMigration(NetworkRunner r, HostMigrationToken token)
+    async void JoinRoom(string roomName)
     {
-        print("Host!!!");
-    }
-    public void OnReliableDataReceived(NetworkRunner r, PlayerRef player, ReliableKey key, System.ArraySegment<byte> data) { }
-    public void OnReliableDataProgress(NetworkRunner r, PlayerRef player, ReliableKey key, float progress) { }
-    public void OnSceneLoadStart(NetworkRunner r) { }
-    public void OnSceneLoadDone(NetworkRunner r) { }
-    public void OnObjectEnterAOI(NetworkRunner r, NetworkObject obj, PlayerRef player) { }
-    public void OnObjectExitAOI(NetworkRunner r, NetworkObject obj, PlayerRef player) { }
+        var args = new StartGameArgs
+        {
+            GameMode = GameMode.Client, // ✅ 改成 Client
+            SessionName = roomName,
+        };
 
-    // 仍然可留著（有些版本會呼叫）
-    public void OnShutdown(NetworkRunner r, ShutdownReason reason) =>
-        Debug.LogWarning($"RunnerShutdown: {reason}");
+        var result = await _runner.StartGame(args);
+        Debug.Log($"Client Join StartGame: {result}");
+
+        if (result.Ok)
+        {
+            SetUI(UIState.InRoom);
+            UpdateInRoomUI(_runner);
+        }
+    }
+
+    void RedrawRoomList()
+    {
+        foreach (Transform child in roomListParent)
+            Destroy(child.gameObject);
+
+        foreach (var kv in _sessions)
+        {
+            var info = kv.Value;
+
+            var go = Instantiate(roomItemPrefab, roomListParent);
+            var txt = go.GetComponentInChildren<Text>();
+            var btn = go.GetComponentInChildren<Button>();
+
+            txt.text = $"{info.Name} ({info.PlayerCount}/{info.MaxPlayers})";
+            btn.onClick.AddListener(() => JoinRoom(info.Name));
+        }
+    }
+
+    // === Lobby 房間清單更新 ===
+    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
+    {
+        _sessions.Clear();
+        foreach (var s in sessionList)
+            _sessions[s.Name] = s;
+
+        // 只更新 UI，不換 Scene
+        RedrawRoomList();
+    }
+
+    // === 進房/離房後，你也可以在這裡切 UI ===
+    public void OnConnectedToServer(NetworkRunner runner) { }
+    // public void OnDisconnectedFromServer(NetworkRunner runner) { SetUI(UIState.Lobby); }
+
+    public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
+    {
+        Debug.Log($"Disconnected: {reason}");
+        SetUI(UIState.Lobby);
+    }
+
+    // 其他 callbacks 先略（照你原本的即可）
+    public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }
+    public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason) { }
+    public void OnInput(NetworkRunner runner, NetworkInput input) { }
+    public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
+    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    {
+        Debug.Log($"[Main_FusionLauncher] OnPlayerJoined: {player}  active={CountActive(runner)}");
+        UpdateInRoomUI(runner);
+        if (!runner.IsServer) return; // ✅ 只有 Host Spawn
+
+        int idx = _spawnedPlayers.Count % (spawnPoints != null && spawnPoints.Length > 0 ? spawnPoints.Length : 1);
+        Vector3 pos = (spawnPoints != null && spawnPoints.Length > 0) ? spawnPoints[idx].position : Vector3.zero;
+        Quaternion rot = (spawnPoints != null && spawnPoints.Length > 0) ? spawnPoints[idx].rotation : Quaternion.identity;
+
+        var obj = runner.Spawn(playerPrefab, pos, rot, player);
+        _spawnedPlayers[player] = obj;
+        UpdateInRoomUI(runner);
+
+    }
+    int CountActive(NetworkRunner runner)
+    {
+        int c = 0;
+        foreach (var _ in runner.ActivePlayers) c++;
+        return c;
+    }
+
+
+    void LeaveRoom()
+    {
+        if (_runner == null) return;
+
+        _runner.Shutdown();
+        SetUI(UIState.Lobby);
+    }
+
+    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
+    {
+        Debug.Log($"[Main_FusionLauncher] OnPlayerLeft: {player}  active={CountActive(runner)}");
+        UpdateInRoomUI(runner);
+
+        if (!runner.IsServer) return;
+
+        if (_spawnedPlayers.TryGetValue(player, out var obj))
+        {
+            runner.Despawn(obj);
+            _spawnedPlayers.Remove(player);
+        }
+
+    }
+    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { SetUI(UIState.Lobby); }
+    public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
+    public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
+    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
+    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data) { }
+    public void OnSceneLoadDone(NetworkRunner runner) { }
+    public void OnSceneLoadStart(NetworkRunner runner) { }
+    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
+    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
+
+
+
+
+    public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress) { }
+
 }

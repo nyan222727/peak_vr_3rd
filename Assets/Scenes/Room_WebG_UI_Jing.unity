@@ -6363,7 +6363,7 @@ PrefabInstance:
     - target: {fileID: 8331118647510928430, guid: 16571f1108e581e49bf9fbc47ee61395,
         type: 3}
       propertyPath: SortKey
-      value: 2585637296
+      value: 2355388219
       objectReference: {fileID: 0}
     - target: {fileID: 8331118647510928430, guid: 16571f1108e581e49bf9fbc47ee61395,
         type: 3}
@@ -11411,6 +11411,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main_FusionLauncher
       objectReference: {fileID: 0}
+    - target: {fileID: 1639931398746639473, guid: 04242d27e4948564589c5f9c39f62d68,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4749815329045110040, guid: 04242d27e4948564589c5f9c39f62d68,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -11419,17 +11424,17 @@ PrefabInstance:
     - target: {fileID: 5629657082378810230, guid: 04242d27e4948564589c5f9c39f62d68,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5629657082378810230, guid: 04242d27e4948564589c5f9c39f62d68,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5629657082378810230, guid: 04242d27e4948564589c5f9c39f62d68,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -37.6355
       objectReference: {fileID: 0}
     - target: {fileID: 6068632835334618523, guid: 04242d27e4948564589c5f9c39f62d68,
         type: 3}
@@ -11444,17 +11449,17 @@ PrefabInstance:
     - target: {fileID: 8264629478839741326, guid: 04242d27e4948564589c5f9c39f62d68,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8264629478839741326, guid: 04242d27e4948564589c5f9c39f62d68,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8264629478839741326, guid: 04242d27e4948564589c5f9c39f62d68,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5770303
       objectReference: {fileID: 0}
     - target: {fileID: 8975935801153003879, guid: 04242d27e4948564589c5f9c39f62d68,
         type: 3}
@@ -11558,7 +11563,7 @@ PrefabInstance:
     - target: {fileID: 7658708335862361189, guid: 1b7047266eaaf624584c216fe929fc7f,
         type: 3}
       propertyPath: SortKey
-      value: 199898991
+      value: 4264617210
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
