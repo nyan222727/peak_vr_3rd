@@ -150,8 +150,28 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Head
+    second: {fileID: 2100000, guid: 25ebc42762a17da4fbd1466b0cd4ddd5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Irises
+    second: {fileID: 2100000, guid: 284793fb57cd92f40a2c07d7e1efa6d1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: JacketSleeves
     second: {fileID: 2100000, guid: cfac1df5d23155d4aadae7fbfa2277ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Legs
+    second: {fileID: 2100000, guid: ce628acb8e5d44248a1b327369a54e8f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lips
+    second: {fileID: 2100000, guid: 84da837d382e89f439a815b56fc02b3e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -160,13 +180,78 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Mouth
+    second: {fileID: 2100000, guid: 7c2ce13abd280e84381ee97d5fb47dc1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pupils
+    second: {fileID: 2100000, guid: 8902cbc33a546c640afbef73816ce73f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Scalp
     second: {fileID: 2100000, guid: 19be0d1c94dee0448840d8358a83d997, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Sclera
+    second: {fileID: 2100000, guid: d44e96f7f6ccbf94a9f49ab04bd791ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SideL_Mat
+    second: {fileID: 2100000, guid: 6b00950472c016142af0ef7c9e90ee62, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SideL_f_Mat
+    second: {fileID: 2100000, guid: da68406c9c2f08d4ab71cd750d4fc210, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SideR_Mat
+    second: {fileID: 2100000, guid: 3ac6bdd2476a3144c990aa7c384a5d7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SideR_f_Mat
+    second: {fileID: 2100000, guid: 3740b0eb536f08342b55dd0e53700261, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tail_Mat
+    second: {fileID: 2100000, guid: deb588fcc81561e4882da7306d41ae49, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tail_f_Mat
+    second: {fileID: 2100000, guid: c9b3a63900929b64797571880fdc7669, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Tear
     second: {fileID: 2100000, guid: a3d568d7519b45647be2354fa23518dd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Teeth
+    second: {fileID: 2100000, guid: 2d9840f6a0ce9054982f9a8e6810f69e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Temples_Mat
+    second: {fileID: 2100000, guid: 011b2e2218828474493d03771814b5fa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tie_Mat
+    second: {fileID: 2100000, guid: ae078c234f7c56242a5100eff568496b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Toenails
+    second: {fileID: 2100000, guid: 4a889c5495946f14597ed1c485765290, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
