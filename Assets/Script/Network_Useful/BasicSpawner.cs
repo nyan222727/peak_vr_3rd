@@ -111,7 +111,9 @@ private void CleanupLocalPreview(string reason)
         if (sceneManager == null) sceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>();
 
         // Create the NetworkSceneInfo from the current scene
+
         var scene = SceneRef.FromIndex(0);
+
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid) {
             sceneInfo.AddSceneRef(scene, LoadSceneMode.Single);
