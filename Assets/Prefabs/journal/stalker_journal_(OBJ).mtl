@@ -1,0 +1,35 @@
+# Blender 4.4.3 MTL File: 'stalker_journal_(BLEND).blend'
+# www.blender.org
+
+newmtl stalker_survival_guide_bolts
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Textures/Textures/stalker_survival_guide_bolts_BaseColor.png
+map_Bump -bm 1.000000 Textures/Textures/stalker_survival_guide_bolts_Normal_GL.png
+
+newmtl stalker_survival_guide_closed
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd Textures/Textures/stalker_survival_guide_closed_BaseColorOpacity.png
+map_d Textures/Textures/stalker_survival_guide_closed_BaseColorOpacity.png
+map_Bump -bm 1.000000 Textures/Textures/stalker_survival_guide_closed_Normal_GL.png
+
+newmtl stalker_survival_guide_open
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd Textures/Textures/stalker_survival_guide_open_BaseColorOpacity.png
+map_d Textures/Textures/stalker_survival_guide_open_BaseColorOpacity.png
+map_Bump -bm 1.000000 Textures/Textures/stalker_survival_guide_open_Normal_GL.png

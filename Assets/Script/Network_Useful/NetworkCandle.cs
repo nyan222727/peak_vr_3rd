@@ -9,6 +9,8 @@ public class NetworkCandle : NetworkBehaviour
 {
   [Header("Flame children (leave empty to auto-discover)")]
   [SerializeField] private GameObject[] flameObjects;
+  public bool IsHeldByAnyone => IsHeld == true;
+  public bool IsLit;
 
   // Replicated states (default = false → UNLIT, and not held)
   [Networked] private NetworkBool Lit   { get; set; }
@@ -26,8 +28,8 @@ public class NetworkCandle : NetworkBehaviour
     CacheFlames();
 
     //comment oout this if default should be unlit
-    if (Object.HasStateAuthority)
-        Lit = true;
+    if (Object.name.StartsWith("glow"))
+      Lit = true;
         
 
     ApplyLit(Lit);
@@ -75,6 +77,7 @@ public class NetworkCandle : NetworkBehaviour
     if (flameObjects == null || flameObjects.Length == 0) CacheFlames();
     foreach (var go in flameObjects) if (go) go.SetActive(value);
     _lastAppliedLit = value;
+    IsLit = value;
   }
 
   // Clients request a toggle; StateAuthority flips the bit (replicated to all)

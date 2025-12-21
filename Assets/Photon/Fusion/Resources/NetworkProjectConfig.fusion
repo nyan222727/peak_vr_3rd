@@ -12,7 +12,7 @@
     "InvokeRenderInBatchMode": true,
     "NetworkIdIsObjectName": false,
     "HideNetworkObjectInactivityGuard": false,
-    "AllowClientServerModesInWebGL": false,
+    "AllowClientServerModesInWebGL": true,
     "ClientsRecordFrameAndPacketTimingTraces": false,
     "Simulation": {
         "InputDataWordCount": 0,
@@ -27,7 +27,8 @@
             "ServerSendIndex": 1
         },
         "MaxObjectDestroysSentPerPacket": 32,
-        "EnableExperimentalPacketLossRecovery": false
+        "EnableExperimentalPacketLossRecovery": false,
+        "EnableAdaptivePacketFragmentation": false
     },
     "Network": {
         "ConnectionTimeout": 10.0,

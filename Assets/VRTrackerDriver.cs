@@ -8,6 +8,12 @@ using Unity.XR.CoreUtils;       // for XROrigin if you use XR Interaction Toolki
 /// Robust: keeps searching until anchors are found; works with OVR + XR Origin.
 [DefaultExecutionOrder(1000)]   // run late so it updates after the rig
 public class VRTrackerDriver : NetworkBehaviour {
+  [Header("Hand Override (optional)")]
+  public bool overrideLeftHand;
+  public bool overrideRightHand;
+  public Transform leftHandOverrideTarget;
+  public Transform rightHandOverrideTarget;
+
   [Header("PlayerPrefab trackers (required)")]
   public Transform headTracker;     // PlayerPrefab/Head
   public Transform leftHandTracker; // PlayerPrefab/HandL
@@ -40,9 +46,26 @@ public class VRTrackerDriver : NetworkBehaviour {
     }
 
     // 3) Drive the trackers
-    if (headTracker)  headTracker.SetPositionAndRotation(centerEyeAnchor.position, centerEyeAnchor.rotation);
-    if (leftHandTracker)  leftHandTracker.SetPositionAndRotation(leftControllerAnchor.position, leftControllerAnchor.rotation);
-    if (rightHandTracker) rightHandTracker.SetPositionAndRotation(rightControllerAnchor.position, rightControllerAnchor.rotation);
+    // 3) Drive the trackers
+    if (headTracker)
+      headTracker.SetPositionAndRotation(centerEyeAnchor.position, centerEyeAnchor.rotation);
+
+    if (leftHandTracker)
+    {
+      if (overrideLeftHand && leftHandOverrideTarget)
+        leftHandTracker.SetPositionAndRotation(leftHandOverrideTarget.position, leftHandOverrideTarget.rotation);
+      else
+        leftHandTracker.SetPositionAndRotation(leftControllerAnchor.position, leftControllerAnchor.rotation);
+    }
+
+    if (rightHandTracker)
+    {
+      if (overrideRightHand && rightHandOverrideTarget)
+        rightHandTracker.SetPositionAndRotation(rightHandOverrideTarget.position, rightHandOverrideTarget.rotation);
+      else
+        rightHandTracker.SetPositionAndRotation(rightControllerAnchor.position, rightControllerAnchor.rotation);
+    }
+
   }
 
   bool AnchorsValid() =>

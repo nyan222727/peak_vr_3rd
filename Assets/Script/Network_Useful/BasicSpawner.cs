@@ -11,6 +11,11 @@ using TMPro;
 
 public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 {
+    [Header("Local Preview Cleanup")]
+    [SerializeField] private GameObject localPreviewPlayerRoot;   // drag PlayerPrefab_Local here
+    [SerializeField] private bool destroyPreviewOnConnect = true;
+
+    private bool _previewCleanedUp = false;
     public static BasicSpawner Instance { get; private set; }
     
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
@@ -51,12 +56,34 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+        Invoke("QuickStart",0f);
     }
 
     void Start()
     {
         if(RoomName) RoomName.text = "Lobby";
     }
+
+private void CleanupLocalPreview(string reason)
+{
+    if (_previewCleanedUp) return;
+
+    if (localPreviewPlayerRoot == null)
+    {
+        Debug.LogWarning($"[BasicSpawner] CleanupLocalPreview skipped: no localPreviewPlayerRoot assigned. Reason={reason}");
+        return;
+    }
+
+    Debug.Log($"[BasicSpawner] Removing Local Preview Player: {localPreviewPlayerRoot.name} | Reason={reason}");
+
+    if (destroyPreviewOnConnect)
+        Destroy(localPreviewPlayerRoot);
+    else
+        localPreviewPlayerRoot.SetActive(false);
+
+    _previewCleanedUp = true;
+}
+
 
     void Update()
     {
@@ -84,7 +111,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         if (sceneManager == null) sceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>();
 
         // Create the NetworkSceneInfo from the current scene
-        var scene = SceneRef.FromIndex(1);
+        var scene = SceneRef.FromIndex(0);
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid) {
             sceneInfo.AddSceneRef(scene, LoadSceneMode.Single);
@@ -109,11 +136,15 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     //進到第二個場景，然後要加 Player 進去
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+        if (player == runner.LocalPlayer)
+        {
+            CleanupLocalPreview("Local player joined session (switching to networked player)");
+        }
         if (player == runner.LocalPlayer && _playerPrefab != null)
         {
             Debug.Log(runner.LocalPlayer + "," + player);
             // Create a unique position for the player
-            Vector3 spawnPosition = new Vector3(0, 1, 0);
+            Vector3 spawnPosition = new Vector3(0, 1.6f, 0);
             //NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player, (runner, obj) => {
             });

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - RightRay
+  - Target
+  - Candle
+  - Plate
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - Hand
   - Overlay UI
   - FirstPersonHidden
-  - 
+  - Interactable
   - 
   - 
   - 
