@@ -15,7 +15,7 @@ public class StartGameController : MonoBehaviour
     [SerializeField] private List<GameObject> objectsToActivateOnStart = new List<GameObject>();
 
     [Header("Optional")]
-    [SerializeField] private SpawnManager spawnManager;
+    [SerializeField] private LocalSpawnManager localspawnManager;
 
     private bool _applied = false;
 
@@ -68,8 +68,10 @@ public class StartGameController : MonoBehaviour
         SetObjectsActive(objectsToActivateOnStart, true);
 
         // 3) Optional: trigger host-only spawn logic
-        if (spawnManager != null)
-            spawnManager.TrySpawnNow();
+        //if (spawnManager != null)
+          //  spawnManager.TrySpawnNow();
+        if (localspawnManager != null)
+            localspawnManager.TrySpawnNow();
     }
 
     /// Call this if you want to trigger immediately (e.g., for debugging)

@@ -1,117 +1,57 @@
-using Fusion;
 using UnityEngine;
+using Fusion;
 
 /// <summary>
-/// Attach this to the NETWORKED player object (spawned per player).
-/// Uses a SINGLE scene PlayerPoseProxy (already in the scene, only one) and streams poses to it.
-/// - InputAuthority: reads local tracker transforms and sends to host via RPC.
-/// - StateAuthority (host): applies to the scene proxy (replicated via NetworkTransform on proxy children).
+/// Local-only sampler. Not networked.
+/// Reads tracker transforms and submits to PlayerPoseProxyNet (which handles networking).
 /// </summary>
-public class PlayerPoseProxySender : NetworkBehaviour
+public class PlayerPoseProxyLocalSender : MonoBehaviour
 {
-    [Header("Scene Proxy (single instance)")]
-    [Tooltip("Optional: assign a name to find the proxy GameObject in the scene. Leave empty to find by type.")]
-    public string sceneProxyName = "";
+    [Header("Scene Proxy (networked)")]
+    public PlayerPoseProxy proxy;        // assign if you want
+    public string proxyObjectName = "";     // optional deterministic find
 
-    [Tooltip("If true, will search inactive objects too.")]
-    public bool includeInactiveInFind = true;
+    [Header("Optional authority gate")]
+    [Tooltip("If assigned, only streams when this NetworkObject has InputAuthority (prevents non-owner sending).")]
+    public NetworkObject inputAuthorityGate;
 
-    [Header("Pose Sources (assign from your PlayerPrefab)")]
-    [Tooltip("Usually the moving root of your rig / player (e.g., CameraRig root).")]
+    [Header("Pose Sources")]
     public Transform rootSource;
-
-    [Tooltip("Head tracker transform (final pose).")]
     public Transform headSource;
-
-    [Tooltip("Left hand tracker transform (final pose).")]
     public Transform leftHandSource;
-
-    [Tooltip("Right hand tracker transform (final pose).")]
     public Transform rightHandSource;
 
     [Header("Feet (optional)")]
     public bool syncFeet = false;
-
-    [Tooltip("Humanoid Animator root (TempAvatar). Used only if syncFeet=true.")]
     public Animator humanoidAnimator;
 
     [Header("Send Rate")]
-    [Tooltip("How many pose updates per second are sent from owner to host.")]
     [Range(5, 90)] public int sendRateHz = 30;
 
-    private PlayerPoseProxy _proxy;
     private float _nextSendTime;
     private bool _warnedMissingProxy;
 
-    public override void Spawned()
+    private void Awake()
     {
-        if (!rootSource) rootSource = transform;
-
-        ResolveSceneProxy();
+        ResolveProxy();
     }
 
-    private void ResolveSceneProxy()
+    private void Update()
     {
-        if (_proxy != null) return;
-
-        // 1) If name provided, try find by name first (cheapest + deterministic)
-        if (!string.IsNullOrWhiteSpace(sceneProxyName))
-        {
-            var go = GameObject.Find(sceneProxyName);
-            if (go != null) _proxy = go.GetComponent<PlayerPoseProxy>();
-        }
-
-        // 2) Fallback: find by type
-        if (_proxy == null)
-        {
-            // FindObjectOfType doesn't include inactive objects; use Resources when needed.
-            if (!includeInactiveInFind)
-            {
-               _proxy = UnityEngine.Object.FindFirstObjectByType<PlayerPoseProxy>();
-            }
-            else
-            {
-                var all = Resources.FindObjectsOfTypeAll<PlayerPoseProxy>();
-                // pick the first one that is in a loaded scene
-                foreach (var p in all)
-                {
-                    if (p != null && p.gameObject.scene.IsValid())
-                    {
-                        _proxy = p;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (_proxy == null && !_warnedMissingProxy)
-        {
-            _warnedMissingProxy = true;
-            Debug.LogWarning($"[{nameof(PlayerPoseProxySender)}] Could not find scene {nameof(PlayerPoseProxy)}. " +
-                             $"Make sure there is exactly one in the scene and it has a NetworkObject + child NetworkTransforms.");
-        }
-    }
-
-    public override void FixedUpdateNetwork()
-    {
-        if (!Object || !Object.HasInputAuthority)
-            return;
-
         if (sendRateHz <= 0) return;
 
-        // Rate limit
+        if (inputAuthorityGate != null && !inputAuthorityGate.HasInputAuthority)
+            return;
+
         if (Time.time < _nextSendTime) return;
         _nextSendTime = Time.time + (1f / sendRateHz);
 
-        // Sources must exist
         if (!rootSource || !headSource || !leftHandSource || !rightHandSource)
             return;
 
-        // Ensure proxy exists (in case Spawned order differs)
-        if (_proxy == null) ResolveSceneProxy();
-        if (_proxy == null) return;
+        if (proxy == null) ResolveProxy();
+        if (proxy == null) return;
 
-        // Feet (optional)
         bool hasFeet = false;
         Vector3 lfPos = default; Quaternion lfRot = default;
         Vector3 rfPos = default; Quaternion rfRot = default;
@@ -128,23 +68,7 @@ public class PlayerPoseProxySender : NetworkBehaviour
             }
         }
 
-        // If we are also host, apply directly (no RPC)
-        if (Object.HasStateAuthority)
-        {
-            _proxy.ApplyPose(
-                rootSource.position, rootSource.rotation,
-                headSource.position, headSource.rotation,
-                leftHandSource.position, leftHandSource.rotation,
-                rightHandSource.position, rightHandSource.rotation,
-                hasFeet,
-                lfPos, lfRot,
-                rfPos, rfRot
-            );
-            return;
-        }
-
-        // Client -> Host
-        RPC_SendPoseToHost(
+        proxy.SubmitPoseFromLocal(
             rootSource.position, rootSource.rotation,
             headSource.position, headSource.rotation,
             leftHandSource.position, leftHandSource.rotation,
@@ -155,30 +79,23 @@ public class PlayerPoseProxySender : NetworkBehaviour
         );
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-    private void RPC_SendPoseToHost(
-        Vector3 rootPos, Quaternion rootRot,
-        Vector3 headPos, Quaternion headRot,
-        Vector3 lhPos, Quaternion lhRot,
-        Vector3 rhPos, Quaternion rhRot,
-        bool hasFeet,
-        Vector3 lfPos, Quaternion lfRot,
-        Vector3 rfPos, Quaternion rfRot,
-        RpcInfo info = default)
+    private void ResolveProxy()
     {
-        if (!Object.HasStateAuthority) return;
+        if (proxy != null) return;
 
-        if (_proxy == null) ResolveSceneProxy();
-        if (_proxy == null) return;
+        if (!string.IsNullOrWhiteSpace(proxyObjectName))
+        {
+            var go = GameObject.Find(proxyObjectName);
+            if (go != null) proxy = go.GetComponent<PlayerPoseProxy>();
+        }
 
-        _proxy.ApplyPose(
-            rootPos, rootRot,
-            headPos, headRot,
-            lhPos, lhRot,
-            rhPos, rhRot,
-            hasFeet,
-            lfPos, lfRot,
-            rfPos, rfRot
-        );
+        if (proxy == null)
+            proxy = FindObjectOfType<PlayerPoseProxy>();
+
+        if (proxy == null && !_warnedMissingProxy)
+        {
+            _warnedMissingProxy = true;
+            Debug.LogWarning("[PlayerPoseProxyLocalSender] Could not find PlayerPoseProxyNet in scene.");
+        }
     }
 }

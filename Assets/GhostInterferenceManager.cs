@@ -45,9 +45,10 @@ public class GhostInterferenceManager : NetworkBehaviour
             return;
         }
 
-        var all = FindObjectsOfType<GhostGrabInterference>(false);
+        //var all = FindObjectsOfType<GhostGrabInterference>(false);
+        var all = FindObjectsOfType<LocalGhostGrabInterference>(false);
 
-        GhostGrabInterference chosen = null;
+        LocalGhostGrabInterference chosen = null;
         float bestDist = float.MaxValue;
 
         // IMPORTANT: pick the grabbed one, not the nearest one.
@@ -73,8 +74,8 @@ public class GhostInterferenceManager : NetworkBehaviour
             return;
         }
 
-        if (verboseLogs)
-            Debug.Log($"[GhostInterferenceManager] HandleGhostTriggerRpc: chosen={chosen.name}, dist={bestDist:F2}, grabbed={chosen.IsGrabbedNow}, stateAuth={chosen.Object?.StateAuthority}, source={info.Source}");
+        //if (verboseLogs)
+          //  Debug.Log($"[GhostInterferenceManager] HandleGhostTriggerRpc: chosen={chosen.name}, dist={bestDist:F2}, grabbed={chosen.IsGrabbedNow}, stateAuth={chosen.Object?.StateAuthority}, source={info.Source}");
 
         // This already RPCs to the StateAuthority inside GhostGrabInterference.
         chosen.RegisterGhostHit(playerHead.position, playerHead.forward);

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f8766c17-aaf8-4b55-9431-de8deea83842
-  instanceId: b48a7ee7-319b-49b5-bc15-342781525d39
+  instanceId: 7ffbdebe-a2e5-4d0a-8ddd-d9ac69b17631
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: f8338144-8280-4ff6-9455-ae2bb9c20fe8
@@ -130,19 +130,15 @@ GameObject:
   - component: {fileID: 7747450566705562152}
   - component: {fileID: 980997500966293793}
   - component: {fileID: -2987297311514254034}
-  - component: {fileID: -6997096447692055034}
   - component: {fileID: -4495722341543003146}
   - component: {fileID: -5304162955744892033}
-  - component: {fileID: -8904545396505437147}
-  - component: {fileID: -5848787987123224690}
-  - component: {fileID: 5698768748948129380}
   - component: {fileID: 1370300909231727297}
   - component: {fileID: 4189583025187011734}
-  - component: {fileID: 4368669324725635084}
-  - component: {fileID: 3315050205974976588}
   - component: {fileID: 1914746031722037714}
   - component: {fileID: 5680545268902869067}
   - component: {fileID: 1474650931773363491}
+  - component: {fileID: -6460860136814440099}
+  - component: {fileID: 2422651119367165397}
   m_Layer: 11
   m_Name: Talisman
   m_TagString: Untagged
@@ -250,28 +246,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6997096447692055034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629216697979282514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortKey: 1209683410
-  ObjectInterest: 1
-  Flags: 524289
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: -8904545396505437147}
-  - {fileID: -5848787987123224690}
-  - {fileID: 4368669324725635084}
-  - {fileID: 3315050205974976588}
-  ForceRemoteRenderTimeframe: 0
 --- !u!64 &-4495722341543003146
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -316,54 +290,6 @@ MonoBehaviour:
   _rigidbody: {fileID: -2987297311514254034}
   _kinematicWhileSelected: 1
   _throwWhenUnselected: 1
---- !u!114 &-8904545396505437147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629216697979282514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a591d221a634417e9827eb58e17de84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stateAuthorityChangeErrorCorrectionDelta: 0
-  SyncScale: 0
-  SyncParent: 1
-  _interpolationTarget: {fileID: 0}
-  UsePreciseRotation: 0
-  UseRenderSleepThresholds: 1
-  RenderThresholds:
-    UseEnergy: 1
-    Position: 0.01
-    Rotation: 0.01
-    Scale: 0.01
---- !u!114 &-5848787987123224690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629216697979282514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b72e9ba2c21430c818f53e1079c2a93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5698768748948129380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629216697979282514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413bd4e9cbbc96b46ac5a1d62a4105d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseGravity: 1
 --- !u!82 &1370300909231727297
 AudioSource:
   m_ObjectHideFlags: 0
@@ -481,74 +407,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0669618, y: 0.45122266, z: 2.815528}
   m_Center: {x: 0.020610018, y: 0.014822483, z: -4.3246882e-17}
---- !u!114 &4368669324725635084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629216697979282514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7628c7f7ef38c6e4683e30399ecdc9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  burn: {fileID: 8717144420079544053}
-  smoke: {fileID: 8352203929507405860}
-  smoke2: {fileID: 8494164820098138937}
-  smoke3: {fileID: 991574344018230301}
-  smoke4: {fileID: 1470033886163417582}
-  smoke5: {fileID: 1918158547262070016}
-  notebookRenderer: {fileID: 980997500966293793}
-  burnIntensityProperty: BurnIntensity
-  fireSparkIntensityProp: FireSparkIntensity
-  burnDissolveProperty: DissolveAmount
-  smokeIntensityProperty: SmokeIntensity
-  delaySmoke3: 1.2
-  delaySmoke5After3: 0.5
-  burnSparkHoldTime: 2
-  burnIntensityRampTime: 3.2
-  burnHoldAtMax: 1.5
-  postSmoke2_5Hold: 1.5
-  smokeIntensityRampTime: 1
-  dissolveTo02Time: 1
-  waitAfter02: 1
-  dissolveTo05Time: 0.5
-  waitAfter05: 0.1
-  finalDissolveTime: 3
-  burnIntensityMax: 8
-  destroyDelayAfterBurn: 1
-  burnStartSfx: {fileID: 8300000, guid: 61c236ec3ce170348b187d3c6da6b539, type: 3}
-  burnStartSfxVolume: 1
-  burnStartSfxSource: {fileID: 1370300909231727297}
-  burnStartSfxSpatial3D: 1
-  autoTestBurnOnStart: 0
-  startGame: {fileID: 0}
---- !u!114 &3315050205974976588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629216697979282514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5230ea6a8f439114ba0fe9c0b96a1d52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  verboseLogs: 1
-  hitsToTriggerFinal: 7
-  comboWindowSeconds: 2
-  visualRoot: {fileID: 5506707018845547207}
-  shakeDuration: 0.18
-  maxPosShake: 0.2
-  maxRotShakeDeg: 12
-  teleportRadius: 2
-  teleportUpOffset: 0.3
-  throwForce: 4
-  disableGrabDuration: 0.15
-  _IsHeld:
-    _value: 0
 --- !u!114 &1914746031722037714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,6 +546,72 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-6460860136814440099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629216697979282514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bd39bedffbb0e843b97c2bcd1cd387b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  burn: {fileID: 8717144420079544053}
+  smoke: {fileID: 8352203929507405860}
+  smoke2: {fileID: 8494164820098138937}
+  smoke3: {fileID: 991574344018230301}
+  smoke4: {fileID: 1470033886163417582}
+  smoke5: {fileID: 1918158547262070016}
+  notebookRenderer: {fileID: 980997500966293793}
+  burnIntensityProperty: BurnIntensity
+  fireSparkIntensityProp: FireSparkIntensity
+  burnDissolveProperty: DissolveAmount
+  smokeIntensityProperty: SmokeIntensity
+  delaySmoke3: 1.5
+  delaySmoke5After3: 0.5
+  burnSparkHoldTime: 2
+  burnIntensityRampTime: 3.2
+  burnHoldAtMax: 1.5
+  postSmoke2_5Hold: 1.5
+  smokeIntensityRampTime: 1
+  dissolveTo02Time: 1
+  waitAfter02: 1
+  dissolveTo05Time: 0.5
+  waitAfter05: 0.1
+  finalDissolveTime: 3
+  burnIntensityMax: 8
+  destroyDelayAfterBurn: 1
+  burnStartSfx: {fileID: 8300000, guid: 61c236ec3ce170348b187d3c6da6b539, type: 3}
+  burnStartSfxVolume: 1
+  burnStartSfxSource: {fileID: 1474650931773363491}
+  burnStartSfxSpatial3D: 1
+  autoTestBurnOnStart: 0
+  startGame: {fileID: 0}
+--- !u!114 &2422651119367165397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629216697979282514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dbf127e6c943f147bea65ca4180fa30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verboseLogs: 1
+  hitsToTriggerFinal: 7
+  comboWindowSeconds: 2
+  visualRoot: {fileID: 0}
+  shakeDuration: 0.18
+  maxPosShake: 0.02
+  maxRotShakeDeg: 12
+  teleportRadius: 2
+  teleportUpOffset: 0.3
+  throwForce: 4
+  disableGrabDuration: 0.15
 --- !u!1 &3676844177722422356
 GameObject:
   m_ObjectHideFlags: 0

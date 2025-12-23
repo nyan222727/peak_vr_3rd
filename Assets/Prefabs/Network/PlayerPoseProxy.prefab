@@ -304,6 +304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 118579572199439998}
   - component: {fileID: 2009467667821051518}
+  - component: {fileID: 6147636614648948347}
   m_Layer: 0
   m_Name: PlayerPoseProxy
   m_TagString: Untagged
@@ -348,5 +349,30 @@ MonoBehaviour:
   headNode: {fileID: 7803261500459262712}
   leftHandNode: {fileID: 556789831228019317}
   rightHandNode: {fileID: 7127902014054367167}
-  leftFootNode: {fileID: 5055126605131269148}
-  rightFootNode: {fileID: 1916226739563720104}
+  leftFootNode: {fileID: 0}
+  rightFootNode: {fileID: 0}
+--- !u!114 &6147636614648948347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9017437763533592003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 3813481628
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 2009467667821051518}
+  - {fileID: 7297249882063741662}
+  - {fileID: 3914393463107946299}
+  - {fileID: 496996678235681445}
+  - {fileID: 438987445864601474}
+  - {fileID: 3301627335758858546}
+  - {fileID: 48206629929385509}
+  ForceRemoteRenderTimeframe: 0

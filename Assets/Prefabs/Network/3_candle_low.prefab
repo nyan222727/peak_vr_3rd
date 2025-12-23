@@ -641,35 +641,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4642110814774864936}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 630014834854631755}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7027005554991331425}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1089112701313853228}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7144306147039230867}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5110303558950631543}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8722950897609044658}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1179817709198288308}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
         type: 3}
       insertIndex: -1
@@ -686,6 +658,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5707413289212421820}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4140303666399488179}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594c7ba2b9c483f41ab70830c489dc2d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7440114477487357805}
   m_SourcePrefab: {fileID: 100100000, guid: 594c7ba2b9c483f41ab70830c489dc2d, type: 3}
 --- !u!4 &58821040275304906 stripped
 Transform:
@@ -791,8 +771,8 @@ MonoBehaviour:
   _whenSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1089112701313853228}
-        m_TargetAssemblyTypeName: NetworkCandle, Assembly-CSharp
+      - m_Target: {fileID: 4140303666399488179}
+        m_TargetAssemblyTypeName: LocalCandle, Assembly-CSharp
         m_MethodName: ToggleSelected
         m_Mode: 1
         m_Arguments:
@@ -830,52 +810,6 @@ MonoBehaviour:
   _whenSelectingInteractorViewRemoved:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4642110814774864936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836308061229280112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortKey: 2477543415
-  ObjectInterest: 1
-  Flags: 524289
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 630014834854631755}
-  - {fileID: 1089112701313853228}
-  - {fileID: 7144306147039230867}
-  - {fileID: 8722950897609044658}
-  - {fileID: 1179817709198288308}
-  ForceRemoteRenderTimeframe: 0
---- !u!114 &630014834854631755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836308061229280112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a591d221a634417e9827eb58e17de84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stateAuthorityChangeErrorCorrectionDelta: 0
-  SyncScale: 0
-  SyncParent: 1
-  _interpolationTarget: {fileID: 0}
-  UsePreciseRotation: 0
-  UseRenderSleepThresholds: 1
-  RenderThresholds:
-    UseEnergy: 1
-    Position: 0.01
-    Rotation: 0.01
-    Scale: 0.01
 --- !u!82 &7027005554991331425
 AudioSource:
   m_ObjectHideFlags: 0
@@ -972,89 +906,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1089112701313853228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836308061229280112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8897e25dd8d4343afc86a5ab9d23da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flameObjects: []
-  IsLit: 0
---- !u!114 &7144306147039230867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836308061229280112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b72e9ba2c21430c818f53e1079c2a93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5110303558950631543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836308061229280112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413bd4e9cbbc96b46ac5a1d62a4105d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseGravity: 1
---- !u!114 &8722950897609044658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836308061229280112}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c1b60112e7e4146a7c20a2b6923092, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _candle: {fileID: 1089112701313853228}
-  _visualRoot: {fileID: 0}
-  shakeDuration: 1
-  smallPosAmplitude: 1
-  smallRotAmplitude: 5
-  bigPosAmplitude: 3
-  bigRotAmplitude: 30
---- !u!114 &1179817709198288308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836308061229280112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5230ea6a8f439114ba0fe9c0b96a1d52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  verboseLogs: 1
-  hitsToTriggerFinal: 8
-  comboWindowSeconds: 3
-  visualRoot: {fileID: 58821040275304906}
-  shakeDuration: 0.18
-  maxPosShake: 0.18
-  maxRotShakeDeg: 12
-  teleportRadius: 3
-  teleportUpOffset: 0.5
-  throwForce: 6
-  disableGrabDuration: 0.3
-  _IsHeld:
-    _value: 0
 --- !u!114 &3289757645071828443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1292,6 +1143,45 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4140303666399488179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836308061229280112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05399d78766a245428feb46cb6696a7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flameObjects: []
+  IsLit: 0
+  Lit: 0
+  IsHeld: 0
+--- !u!114 &-7440114477487357805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836308061229280112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dbf127e6c943f147bea65ca4180fa30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verboseLogs: 1
+  hitsToTriggerFinal: 8
+  comboWindowSeconds: 3
+  visualRoot: {fileID: 0}
+  shakeDuration: 0.18
+  maxPosShake: 0.18
+  maxRotShakeDeg: 12
+  teleportRadius: 3
+  teleportUpOffset: 0.3
+  throwForce: 6
+  disableGrabDuration: 0.15
 --- !u!1001 &1813612741566186279
 PrefabInstance:
   m_ObjectHideFlags: 0
