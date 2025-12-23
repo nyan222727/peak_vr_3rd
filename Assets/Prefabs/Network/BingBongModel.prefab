@@ -70,15 +70,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 454f204356f1ebf47a160d292622874f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7268163260610946509}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 454f204356f1ebf47a160d292622874f,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8843878285097641995}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 454f204356f1ebf47a160d292622874f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 991382438420527531}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 454f204356f1ebf47a160d292622874f,
         type: 3}
       insertIndex: -1
@@ -94,27 +86,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 511621780123298009}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7268163260610946509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853657107215881608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortKey: 238521125
-  ObjectInterest: 1
-  Flags: 262145
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 8843878285097641995}
-  - {fileID: 991382438420527531}
-  - {fileID: 2776129793297373591}
-  ForceRemoteRenderTimeframe: 0
 --- !u!114 &8843878285097641995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,19 +104,6 @@ MonoBehaviour:
   StateHashes: 0000000025e1b6c2165293f5
   TriggerHashes: 00000000
   TotalWords: 2
---- !u!114 &991382438420527531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853657107215881608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9873f84234bee7743bd1f0f09463cfdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 1
 --- !u!95 &1882902967420801146
 Animator:
   serializedVersion: 5

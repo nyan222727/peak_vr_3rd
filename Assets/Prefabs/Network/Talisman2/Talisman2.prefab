@@ -232,14 +232,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 315c4c7069e383c43b48da4f242ae0db,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4850833567177174356}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 315c4c7069e383c43b48da4f242ae0db,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5658982549853391024}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 315c4c7069e383c43b48da4f242ae0db,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5566455113438661087}
   m_SourcePrefab: {fileID: 100100000, guid: 315c4c7069e383c43b48da4f242ae0db, type: 3}
 --- !u!4 &2490653169866951925 stripped
@@ -349,49 +341,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseGravity: 1
---- !u!114 &4850833567177174356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3016078524611991119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortKey: 2035130245
-  ObjectInterest: 1
-  Flags: 524289
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 3995894057933051565}
-  - {fileID: 5658982549853391024}
-  ForceRemoteRenderTimeframe: 0
---- !u!114 &5658982549853391024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3016078524611991119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a591d221a634417e9827eb58e17de84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stateAuthorityChangeErrorCorrectionDelta: 0
-  SyncScale: 0
-  SyncParent: 1
-  _interpolationTarget: {fileID: 0}
-  UsePreciseRotation: 0
-  UseRenderSleepThresholds: 1
-  RenderThresholds:
-    UseEnergy: 1
-    Position: 0.01
-    Rotation: 0.01
-    Scale: 0.01
 --- !u!82 &5566455113438661087
 AudioSource:
   m_ObjectHideFlags: 0

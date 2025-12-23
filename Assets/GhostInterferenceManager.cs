@@ -13,26 +13,35 @@ public class GhostInterferenceManager : NetworkBehaviour
     // Call this from ANY UI Button on ANY device.
     public void TriggerGhost()
     {
-        if (Object == null)
+        var hub = FusionRpcHub.Instance;
+        if (hub == null)
         {
-            Debug.LogWarning("[GhostInterferenceManager] Not spawned / no NetworkObject. Put this on a spawned NetworkObject.");
+            Debug.LogWarning("[GhostInterferenceManager] FusionRpcHub.Instance not found. Add a FusionRpcHub on a spawned NetworkObject.");
+            return;
+        }
+
+        if (hub.Object == null)
+        {
+            Debug.LogWarning("[GhostInterferenceManager] FusionRpcHub exists but is not spawned (Object == null). Put FusionRpcHub on a spawned NetworkObject.");
             return;
         }
 
         if (verboseLogs)
-            Debug.Log($"[GhostInterferenceManager] TriggerGhost pressed by LocalPlayer={Runner?.LocalPlayer} -> broadcasting RPC");
+            Debug.Log($"[GhostInterferenceManager] TriggerGhost pressed by LocalPlayer={Runner?.LocalPlayer} -> forwarding to FusionRpcHub");
 
-        RPC_BroadcastGhostTrigger();
+        hub.BroadcastGhostTrigger();
     }
 
-    // Key idea: broadcast to ALL. Only the VR client will find a grabbed object locally.
-    [Rpc(RpcSources.All, RpcTargets.All)]
-    private void RPC_BroadcastGhostTrigger()
+    /// <summary>
+    /// Called by <see cref="FusionRpcHub"/> when the Ghost trigger RPC arrives.
+    /// Keeps your existing targeting logic here; only the RPC transport moved to the hub.
+    /// </summary>
+    public void HandleGhostTriggerRpc(RpcInfo info = default)
     {
         if (playerHead == null)
         {
             if (verboseLogs)
-                Debug.LogWarning($"[GhostInterferenceManager] RPC_BroadcastGhostTrigger: playerHead not assigned on this client (LocalPlayer={Runner?.LocalPlayer}).");
+                Debug.LogWarning($"[GhostInterferenceManager] HandleGhostTriggerRpc: playerHead not assigned on this client (LocalPlayer={Runner?.LocalPlayer}).");
             return;
         }
 
@@ -60,12 +69,12 @@ public class GhostInterferenceManager : NetworkBehaviour
         if (chosen == null)
         {
             if (verboseLogs)
-                Debug.Log($"[GhostInterferenceManager] RPC_BroadcastGhostTrigger: no grabbed target found on this client. candidates={all.Length}, player={Runner?.LocalPlayer}");
+                Debug.Log($"[GhostInterferenceManager] HandleGhostTriggerRpc: no grabbed target found on this client. candidates={all.Length}, player={Runner?.LocalPlayer}, source={info.Source}");
             return;
         }
 
         if (verboseLogs)
-            Debug.Log($"[GhostInterferenceManager] RPC_BroadcastGhostTrigger: chosen={chosen.name}, dist={bestDist:F2}, grabbed={chosen.IsGrabbedNow}, stateAuth={chosen.Object?.StateAuthority}");
+            Debug.Log($"[GhostInterferenceManager] HandleGhostTriggerRpc: chosen={chosen.name}, dist={bestDist:F2}, grabbed={chosen.IsGrabbedNow}, stateAuth={chosen.Object?.StateAuthority}, source={info.Source}");
 
         // This already RPCs to the StateAuthority inside GhostGrabInterference.
         chosen.RegisterGhostHit(playerHead.position, playerHead.forward);

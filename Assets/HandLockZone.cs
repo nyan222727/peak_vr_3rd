@@ -5,6 +5,13 @@ public class HandLockZone : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool debugLogs = true;
 
+    [Header("RPC Sync")]
+    [Tooltip("Optional ID used when syncing lock state via FusionRpcHub.")]
+    [SerializeField] private string lockZoneId = "HandLockZone";
+
+    [Tooltip("If true, this zone reports lock/unlock state to FusionRpcHub via RPC.")]
+    [SerializeField] private bool syncLockStateToRpcHub = true;
+
     [Header("Hover Glow")]
     [SerializeField] private MeshRenderer baseRenderer;   // parent Plate_Net renderer (normal)
     [SerializeField] private MeshRenderer glowRenderer;   // child Plate_Net renderer (glow shader)
@@ -45,6 +52,29 @@ public class HandLockZone : MonoBehaviour
     private HandLock.HandSide _lockedSide;
     private int _touchingHandCount = 0;
     private static readonly Collider[] _hoverHits = new Collider[16];
+
+    /// <summary>Publicly queryable lock state (per your request).</summary>
+    public bool IsLocked => _isLocked;
+
+    /// <summary>
+    /// Fired locally when lock state changes (useful for wiring gameplay without polling).
+    /// </summary>
+    public event System.Action<HandLockZone, bool> LockStateChanged;
+
+    private void NotifyLockStateChanged()
+    {
+        if (debugLogs)
+            Debug.Log($"[HandLockZone] LockStateChanged id='{lockZoneId}' -> {_isLocked}", this);
+
+        LockStateChanged?.Invoke(this, _isLocked);
+
+        if (!syncLockStateToRpcHub)
+            return;
+
+        var hub = FusionRpcHub.Instance;
+        if (hub != null)
+            hub.ReportHandLockState(lockZoneId, _isLocked);
+    }
 
 private void Awake()
 {
@@ -212,6 +242,8 @@ private void OnTriggerEnter(Collider other)
     _lockedHand = hand;
     _lockedSide = hand.side;
 
+    NotifyLockStateChanged();
+
     if (debugLogs)
         Debug.Log($"[HandLockZone] Locked OK. _isLocked={_isLocked}, _lockedSide={_lockedSide}", this);
 }
@@ -304,6 +336,8 @@ public void Unlock()
 
     _isLocked = false;
     _lockedHand = null;
+
+    NotifyLockStateChanged();
 
     if (debugLogs) Debug.Log("[HandLockZone] Unlock complete.", this);
 

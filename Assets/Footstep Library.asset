@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ac429a714515d4c966752ae165d557, type: 3}
+  m_Name: Footstep Library
+  m_EditorClassIdentifier: 
+  surfaces:
+  - surface: 1
+    clips:
+    - {fileID: 8300000, guid: 078779127a71e224cbfe692ca1bd8d14, type: 3}
+    - {fileID: 8300000, guid: 157c072da2444f14ebc947fb1676f40c, type: 3}
+    - {fileID: 8300000, guid: f10232ef823e7b647aab312746c48931, type: 3}
+    - {fileID: 8300000, guid: 61c9f4b7422b1174994d9d7ecd5faa39, type: 3}
+    - {fileID: 8300000, guid: fad347ce7a10f0a4dab60a79b8281aea, type: 3}
+    - {fileID: 8300000, guid: 93fae1f72d7011547b6cce0655c64d0c, type: 3}
+    - {fileID: 8300000, guid: 80d65f3998008154fa644c07ec1930fb, type: 3}
+    - {fileID: 8300000, guid: ab142c920fa3a1447b6b0c1cf0bedd56, type: 3}
+    - {fileID: 8300000, guid: 8e5b0cd3ffcf3334fb7d850e6a59ac60, type: 3}
+    - {fileID: 8300000, guid: 379db0bd31468e546a0f8ee366120f84, type: 3}
+    - {fileID: 8300000, guid: 143faeb2e6f03f246bada9a0668740a9, type: 3}
+    volume: 0.27
+    pitchMin: 0.95
+    pitchMax: 1.05
+  - surface: 5
+    clips:
+    - {fileID: 8300000, guid: 078779127a71e224cbfe692ca1bd8d14, type: 3}
+    - {fileID: 8300000, guid: 157c072da2444f14ebc947fb1676f40c, type: 3}
+    - {fileID: 8300000, guid: f10232ef823e7b647aab312746c48931, type: 3}
+    - {fileID: 8300000, guid: 61c9f4b7422b1174994d9d7ecd5faa39, type: 3}
+    - {fileID: 8300000, guid: fad347ce7a10f0a4dab60a79b8281aea, type: 3}
+    - {fileID: 8300000, guid: 93fae1f72d7011547b6cce0655c64d0c, type: 3}
+    - {fileID: 8300000, guid: 80d65f3998008154fa644c07ec1930fb, type: 3}
+    - {fileID: 8300000, guid: ab142c920fa3a1447b6b0c1cf0bedd56, type: 3}
+    - {fileID: 8300000, guid: 8e5b0cd3ffcf3334fb7d850e6a59ac60, type: 3}
+    - {fileID: 8300000, guid: 379db0bd31468e546a0f8ee366120f84, type: 3}
+    - {fileID: 8300000, guid: 143faeb2e6f03f246bada9a0668740a9, type: 3}
+    volume: 0.32
+    pitchMin: 0.95
+    pitchMax: 1.05

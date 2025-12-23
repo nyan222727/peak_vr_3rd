@@ -15,32 +15,39 @@ public class Player_setting : MonoBehaviour, INetworkRunnerCallbacks
 
     void Start()
     {
+        Debug.Log("RUNNER 開始囉");
         // 1) 找到場上正在跑的 Runner（通常是 FusionLauncher Instantiate 出來的那個）
-        _runner = FindObjectOfType<NetworkRunner>();
+        //_runner = FindObjectOfType<NetworkRunner>();
 
-        if (_runner == null)
-        {
-            Debug.LogError("[Player_setting] Can't find NetworkRunner in scene.");
-            return;
-        }
+        //if (_runner == null)
+        //{
+        //    Debug.LogError("[Player_setting] Can't find NetworkRunner in scene.");
+        //    return;
+        //}
 
-        // 2) 註冊 callbacks，讓 OnPlayerJoined 會被呼叫
-        _runner.AddCallbacks(this);
+        //// 2) 註冊 callbacks，讓 OnPlayerJoined 會被呼叫
+        //_runner.AddCallbacks(this);
     }
+
 
     // ✅ 玩家進房回呼：Spawn 自己的角色
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        // 只在「本機玩家」加入時，生自己的角色（避免每個人都幫別人生）
-        if (player != runner.LocalPlayer) return;
-
-        if (_localPlayerObj != null) return; // 避免重複生成
-
-        Vector3 pos = spawnPoint ? spawnPoint.position : Vector3.zero;
-        Quaternion rot = spawnPoint ? spawnPoint.rotation : Quaternion.identity;
-
-        _localPlayerObj = runner.Spawn(playerPrefab, pos, rot, player);
+        Debug.Log("這個有運作");
         Debug.Log($"[Player_setting] Spawn local player: {player}");
+        //// 只在「本機玩家」加入時，生自己的角色（避免每個人都幫別人生）
+        //if (player != runner.LocalPlayer) return;
+
+        //if (_localPlayerObj != null) return; // 避免重複生成
+
+        //Vector3 pos = spawnPoint ? spawnPoint.position : Vector3.zero;
+        //Quaternion rot = spawnPoint ? spawnPoint.rotation : Quaternion.identity;
+
+        //_localPlayerObj = runner.Spawn(playerPrefab, pos, rot, player);
+        //Debug.Log($"[Player_setting] Spawn local player: {player}");
+    }
+    public void TestShow() {
+        Debug.Log("這個也有運作");
     }
 
     // ===== 其他 callbacks 先留空就好 =====

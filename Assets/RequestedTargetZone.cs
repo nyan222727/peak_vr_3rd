@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(Collider))]
 public sealed class RequestedTargetZone : MonoBehaviour
@@ -8,7 +9,6 @@ public sealed class RequestedTargetZone : MonoBehaviour
 
     private void Reset()
     {
-        // Make sure it’s a trigger zone
         var col = GetComponent<Collider>();
         col.isTrigger = true;
     }
@@ -24,15 +24,70 @@ public sealed class RequestedTargetZone : MonoBehaviour
 
         if (RequestedObjectsState.Instance == null)
         {
-            Debug.LogError($"[RequestedTargetZone:{name}] RequestedObjectsState.Instance is null. Did you add it to RequestedObjects with NetworkObject?");
+            Debug.LogError($"[RequestedTargetZone:{name}] RequestedObjectsState.Instance is null.");
             return;
         }
 
         if (debugLogs)
-        {
             Debug.Log($"[RequestedTargetZone:{name}] Enter: incoming={reqObj.ObjectId}, slot={slotIndex}");
-        }
 
-        RequestedObjectsState.Instance.TrySubmitToSlot(slotIndex, reqObj.ObjectId, name);
+        // ✅ Minimal: use return value to decide whether to play effects
+        bool success = RequestedObjectsState.Instance.TrySubmitToSlot(slotIndex, reqObj.ObjectId, name);
+        if (!success) return;
+
+        // 1) placed object VFX: child named "Smoke 3"
+        PlayChildVfxByExactName(reqObj.transform, "Smoke 3");
+
+        // 2) target VFX: child named "Smoke2" (no space)
+        PlayChildVfxByExactName(transform, "Smoke2");
+
+        // 3) enable glow* mesh renderers under target
+        EnableGlowRenderers(transform);
+    }
+
+    private static void PlayChildVfxByExactName(Transform root, string exactName)
+    {
+        // find child transform by name (include inactive)
+        var all = root.GetComponentsInChildren<Transform>(true);
+        foreach (var t in all)
+        {
+            if (t.name != exactName) continue;
+
+            // VFX Graph
+            var vfx = t.GetComponent<VisualEffect>();
+            if (vfx != null)
+            {
+                vfx.Play();
+                if(t.name == "Smoke2")
+                {
+                    Debug.Log("play vfx of target.");
+                }
+                else
+                {
+                    Debug.Log("play vfx of placed object.");
+                }
+                
+            } 
+
+            // ParticleSystem fallback (if some prefabs use PS instead of VFX)
+            var ps = t.GetComponent<ParticleSystem>();
+            if (ps != null) ps.Play();
+
+            return;
+        }
+    }
+
+    private static void EnableGlowRenderers(Transform root)
+    {
+        var all = root.GetComponentsInChildren<Transform>(true);
+        foreach (var t in all)
+        {
+            if (!t.name.StartsWith("glow", System.StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            var renderers = t.GetComponentsInChildren<MeshRenderer>(true);
+            foreach (var r in renderers)
+                r.enabled = true;
+        }
     }
 }

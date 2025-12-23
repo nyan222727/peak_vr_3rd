@@ -1330,6 +1330,37 @@ Transform:
   - {fileID: 9186617749368191621}
   m_Father: {fileID: 4383877787785312677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1146238361080938899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5412710604043715393}
+  m_Layer: 0
+  m_Name: AudioEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5412710604043715393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146238361080938899}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.221, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1219372582124457397}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1149481724004030994
 GameObject:
   m_ObjectHideFlags: 0
@@ -5557,7 +5588,7 @@ GameObject:
   - component: {fileID: 8982750667041422164}
   - component: {fileID: 1133763263162725762}
   - component: {fileID: 7723728317015893750}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TempAvatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7741,7 +7772,7 @@ Transform:
   m_GameObject: {fileID: 5283919503557039998}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7942,6 +7973,8 @@ GameObject:
   - component: {fileID: 5110194677680626752}
   - component: {fileID: 7699145363435356305}
   - component: {fileID: 6159602674418977254}
+  - component: {fileID: 347147774165229222}
+  - component: {fileID: 2919637085270415302}
   m_Layer: 0
   m_Name: PlayerPrefab_1113
   m_TagString: Untagged
@@ -7968,6 +8001,7 @@ Transform:
   - {fileID: 3561300822337632007}
   - {fileID: 4954665167664939258}
   - {fileID: 3484648063813723030}
+  - {fileID: 5412710604043715393}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8566732376910178881
@@ -8013,6 +8047,7 @@ MonoBehaviour:
   - {fileID: 4495004771688665667}
   - {fileID: 5110194677680626752}
   - {fileID: 7699145363435356305}
+  - {fileID: 2919637085270415302}
   - {fileID: 6465748420357546688}
   - {fileID: 8123394411762573010}
   - {fileID: 8733658939793202939}
@@ -8278,8 +8313,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugLogs: 1
+  enableHaptics: 1
   leftHandTracker: {fileID: 3556859334151122581}
   rightHandTracker: {fileID: 7076478961330233703}
+--- !u!114 &347147774165229222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5450321135686133502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a250b26ce80032948bb973abf9ea9378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioEmitterRoot: {fileID: 5412710604043715393}
+  createEmitterIfMissing: 1
+  emitterName: AudioEmitter
+  animator: {fileID: 3847167774139210901}
+  locomotionRoot: {fileID: 0}
+  library: {fileID: 11400000, guid: 6507ea144faf615409117250cb8f0bcb, type: 2}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  minSpeedToStep: 0.05
+  stepDistanceAtWalk: 0.7
+  stepDistanceAtRun: 0.4
+  speedForRun: 1.7
+  minStepInterval: 0.3
+  useStanceHeuristic: 1
+  stanceScoreTieEpsilon: 0.08
+  rayStartUp: 2
+  rayLength: 4
+  spatialBlend: 1
+  minVolumeScale: 0.8
+  maxVolumeScale: 1.2
+  spawnTempIfBothBusy: 1
+--- !u!114 &2919637085270415302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5450321135686133502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e0ba7dbbbad674f82ac82988ff838b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneProxyName: 
+  includeInactiveInFind: 1
+  rootSource: {fileID: 1219372582124457397}
+  headSource: {fileID: 3171930561233272685}
+  leftHandSource: {fileID: 3556859334151122581}
+  rightHandSource: {fileID: 7076478961330233703}
+  syncFeet: 0
+  humanoidAnimator: {fileID: 3847167774139210901}
+  sendRateHz: 30
 --- !u!1 &5464135101757611256
 GameObject:
   m_ObjectHideFlags: 0

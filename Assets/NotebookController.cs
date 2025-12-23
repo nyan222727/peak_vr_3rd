@@ -50,6 +50,16 @@ public class NotebookController : NetworkBehaviour
     [Header("Cleanup")]
     public float destroyDelayAfterBurn = 1.0f;   // how long after burn end before despawn
 
+    [Header("Audio (optional)")]
+    public AudioClip burnStartSfx;
+    [Range(0f, 1f)] public float burnStartSfxVolume = 1f;
+
+    // Optional: assign a specific AudioSource (can be on a child). If null, it will auto-find/create one.
+    public AudioSource burnStartSfxSource;
+
+    // If we auto-create an AudioSource, make it 3D so it comes from the notebook.
+    public bool burnStartSfxSpatial3D = true;
+
     [Header("Debug")]
     [SerializeField] private bool autoTestBurnOnStart = false;
 
@@ -104,6 +114,7 @@ public class NotebookController : NetworkBehaviour
     {
         if (_sequenceStarted || _sequenceFinished)
             return;
+        
 
         _sequenceStarted = true;
         StartCoroutine(BurnSequenceCoroutine());
@@ -120,6 +131,24 @@ public class NotebookController : NetworkBehaviour
         // Step 1: play Smoke, then Smoke3, then Smoke5
         if (smoke != null)
             smoke.Play();
+        // Play burn start SFX (local)
+        if (burnStartSfx != null)
+        {
+            var src = burnStartSfxSource;
+
+            if (src == null)
+            {
+                src = GetComponent<AudioSource>();
+                if (src == null)
+                    src = gameObject.AddComponent<AudioSource>();
+
+                burnStartSfxSource = src; // cache it
+                src.playOnAwake = false;
+                if (burnStartSfxSpatial3D) src.spatialBlend = 1f; // 3D
+            }
+
+            src.PlayOneShot(burnStartSfx, burnStartSfxVolume);
+        }
 
         yield return new WaitForSeconds(delaySmoke3);
 

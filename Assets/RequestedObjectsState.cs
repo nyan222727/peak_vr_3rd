@@ -99,9 +99,33 @@ public sealed class RequestedObjectsState : NetworkBehaviour
             (indices[i], indices[j]) = (indices[j], indices[i]);
         }
 
-        Req0 = (int)possibleObjects[indices[0]];
-        Req1 = (k >= 2) ? (int)possibleObjects[indices[1]] : -1;
-        Req2 = (k >= 3) ? (int)possibleObjects[indices[2]] : -1;
+        // Pick in shuffled order, but enforce: at most ONE request whose name ends with "Doll".
+        // (We keep uniqueness for the rest.)
+        var picked = new List<RequestedObjectId>(k);
+        bool pickedDoll = false;
+
+        for (int t = 0; t < indices.Count && picked.Count < k; t++)
+        {
+            var id = possibleObjects[indices[t]];
+            bool isDoll = id.ToString().EndsWith("Doll");
+
+            if (isDoll && pickedDoll)
+                continue;
+
+            picked.Add(id);
+            if (isDoll) pickedDoll = true;
+        }
+
+        if (picked.Count < k)
+        {
+            Debug.LogError($"[RequestedObjectsState] Cannot fill {k} requested slots with current possibleObjects under Doll rule. " +
+                           $"Picked={picked.Count}. Add more non-doll options or reduce requestedCount.");
+            // Keep behavior safe: fill remaining slots with -1 (but this will block completion if you require all 3).
+        }
+
+        Req0 = (picked.Count >= 1) ? (int)picked[0] : -1;
+        Req1 = (picked.Count >= 2) ? (int)picked[1] : -1;
+        Req2 = (picked.Count >= 3) ? (int)picked[2] : -1;
 
         Done0 = Done1 = Done2 = false;
         AllDone = false;
@@ -114,47 +138,51 @@ public sealed class RequestedObjectsState : NetworkBehaviour
     /// Called by target zones when an object enters that zone.
     /// slotIndex decides which requested item this target expects.
     /// </summary>
-    public void TrySubmitToSlot(int slotIndex, RequestedObjectId incoming, string zoneName)
+public bool TrySubmitToSlot(int slotIndex, RequestedObjectId incoming, string zoneName)
+{
+    if (!Object.HasStateAuthority)
     {
-        if (!Object.HasStateAuthority)
-        {
-            Debug.Log($"[RequestedObjectsState] Submit ignored (no authority). zone={zoneName}, incoming={incoming}");
-            return;
-        }
-
-        var required = GetRequestedId(slotIndex);
-        Debug.Log($"[RequestedObjectsState] Submit attempt zone={zoneName}, slot={slotIndex}, incoming={incoming}, required={required}");
-
-        if ((int)required < 0)
-        {
-            Debug.LogWarning($"[RequestedObjectsState] Slot {slotIndex} has no requested object (Req is -1).");
-            return;
-        }
-
-        if (incoming != required)
-        {
-            Debug.Log($"[RequestedObjectsState] MISMATCH: incoming {incoming} != required {required} (slot {slotIndex})");
-            return;
-        }
-
-        // mark done once
-        if (slotIndex == 0 && !Done0) Done0 = true;
-        else if (slotIndex == 1 && !Done1) Done1 = true;
-        else if (slotIndex == 2 && !Done2) Done2 = true;
-        else
-        {
-            Debug.Log($"[RequestedObjectsState] Slot {slotIndex} already done. Ignored.");
-            return;
-        }
-
-        Debug.Log($"[RequestedObjectsState] ✅ SLOT {slotIndex} COMPLETED by {incoming}. Progress {CompletedCount}/3");
-
-        if (!AllDone && Done0 && Done1 && Done2)
-        {
-            AllDone = true;
-            Debug.Log("[RequestedObjectsState] 🎉 ALL 3 REQUESTED OBJECTS COMPLETED. AllDone = true");
-        }
+        Debug.Log($"[RequestedObjectsState] Submit ignored (no authority). zone={zoneName}, incoming={incoming}");
+        return false;
     }
+
+    var required = GetRequestedId(slotIndex);
+    Debug.Log($"[RequestedObjectsState] Submit attempt zone={zoneName}, slot={slotIndex}, incoming={incoming}, required={required}");
+
+    if ((int)required < 0)
+    {
+        Debug.LogWarning($"[RequestedObjectsState] Slot {slotIndex} has no requested object (Req is -1).");
+        return false;
+    }
+
+    if (incoming != required)
+    {
+        Debug.Log($"[RequestedObjectsState] MISMATCH: incoming {incoming} != required {required} (slot {slotIndex})");
+        return false;
+    }
+
+    bool justCompleted = false;
+
+    // mark done once
+    if (slotIndex == 0 && !Done0) { Done0 = true; justCompleted = true; }
+    else if (slotIndex == 1 && !Done1) { Done1 = true; justCompleted = true; }
+    else if (slotIndex == 2 && !Done2) { Done2 = true; justCompleted = true; }
+    else
+    {
+        Debug.Log($"[RequestedObjectsState] Slot {slotIndex} already done. Ignored.");
+        return false;
+    }
+
+    Debug.Log($"[RequestedObjectsState] ✅ SLOT {slotIndex} COMPLETED by {incoming}. Progress {CompletedCount}/3");
+
+    if (!AllDone && Done0 && Done1 && Done2)
+    {
+        AllDone = true;
+        Debug.Log("[RequestedObjectsState] 🎉 ALL 3 REQUESTED OBJECTS COMPLETED. AllDone = true");
+    }
+
+    return justCompleted;
+}
 
     private void RefreshDebugStrings()
     {

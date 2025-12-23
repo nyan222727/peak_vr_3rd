@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1140532155763866308}
   - component: {fileID: 1815446854554119759}
   - component: {fileID: 4237909885652035602}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: '[BuildingBlock] HandGrabInstallationRoutine'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,6 +131,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Smoke 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7756192050510652073, guid: 2a5399382e0e4844f977c9d14797e886,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168742960724248793, guid: 2a5399382e0e4844f977c9d14797e886,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168742960724248793, guid: 2a5399382e0e4844f977c9d14797e886,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168742960724248793, guid: 2a5399382e0e4844f977c9d14797e886,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 9168742960724248793, guid: 2a5399382e0e4844f977c9d14797e886,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -200,6 +220,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8700617353114198275, guid: 7f3d03dfae734dd45bfc77b15be41906,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -8700617353114198275, guid: 7f3d03dfae734dd45bfc77b15be41906,
         type: 3}
       propertyPath: m_IsActive
@@ -275,15 +300,40 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4876808054094043266, guid: 7f3d03dfae734dd45bfc77b15be41906,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -4403062565385255506, guid: 7f3d03dfae734dd45bfc77b15be41906,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 65702495048144492, guid: 7f3d03dfae734dd45bfc77b15be41906,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 65702495048144492, guid: 7f3d03dfae734dd45bfc77b15be41906,
         type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 523273923322940394, guid: 7f3d03dfae734dd45bfc77b15be41906,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7f3d03dfae734dd45bfc77b15be41906,
         type: 3}
       propertyPath: m_Name
       value: yellow_doll
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7f3d03dfae734dd45bfc77b15be41906,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -394,7 +444,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8618267491977744173}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 12
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -611,8 +661,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.42543057, y: 0.5082499, z: 0.5894622}
-  m_Center: {x: -0.042349868, y: 0.24587536, z: 0.07565513}
+  m_Size: {x: 0.42543057, y: 1.0842805, z: 0.5894622}
+  m_Center: {x: -0.042349868, y: 0.53389066, z: 0.07565513}
 --- !u!4 &8994229638046750103 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7f3d03dfae734dd45bfc77b15be41906,
